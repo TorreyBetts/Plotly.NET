@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFrameworks>netstandard2.0</TargetFrameworks>
   </PropertyGroup>
@@ -14,8 +14,6 @@
     <!-- Optional: Include PDB in the built .nupkg -->
     <IncludeSymbols>true</IncludeSymbols>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
-    <SignAssembly>true</SignAssembly>
-    <AssemblyOriginatorKeyFile>../../key.snk</AssemblyOriginatorKeyFile>
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
     <AllowedOutputExtensionsInPackageBuildOutputFolder>$(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb</AllowedOutputExtensionsInPackageBuildOutputFolder>
     <Configurations>Debug;Release;Dotnet</Configurations>
@@ -40,19 +38,19 @@
     <InternalsVisibleTo Include="FSharpTestBase" />
     <InternalsVisibleTo Include="CSharpTestBase" />
     <InternalsVisibleTo Include="CoreTests" />
-    <InternalsVisibleTo Include="StrongNameTests" />
     <InternalsVisibleTo Include="CSharpTests" />
     <InternalsVisibleTo Include="ImageExportTests" />
   </ItemGroup>
   <ItemGroup>
     <None Include="RELEASE_NOTES.md" />
     <None Include="..\..\docs\img\logo.png" Pack="true" PackagePath="\" />
-    <EmbeddedResource Include="plotly-2.27.1.min.js" />
-    <EmbeddedResource Include="plotly-2.27.1.min.js.LICENSE.txt" />
+    <EmbeddedResource Include="plotly-2.28.0.min.js" />
+    <EmbeddedResource Include="plotly-2.28.0.min.js.LICENSE.txt" />
     <Compile Include="Globals.fs" />
     <Compile Include="InternalUtils.fs" />
     <Compile Include="CommonAbstractions\ColorKeyword.fs" />
     <Compile Include="CommonAbstractions\Colors.fs" />
+    <Compile Include="CommonAbstractions\EncodedTypedArray.fs" />
     <Compile Include="CommonAbstractions\StyleParams.fs" />
     <Compile Include="CommonAbstractions\AutoRangeOptions.fs" />
     <Compile Include="CommonAbstractions\TickFormatStop.fs" />
@@ -162,19 +160,43 @@
     <Compile Include="ChartAPI\HTML.fs" />
     <Compile Include="ChartAPI\GenericChart.fs" />
     <Compile Include="ChartAPI\Chart.fs" />
-    <Compile Include="ChartAPI\Chart2D.fs" />
-    <Compile Include="ChartAPI\Chart3D.fs" />
-    <Compile Include="ChartAPI\ChartPolar.fs" />
-    <Compile Include="ChartAPI\ChartMap.fs" />
-    <Compile Include="ChartAPI\ChartTernary.fs" />
-    <Compile Include="ChartAPI\ChartCarpet.fs" />
-    <Compile Include="ChartAPI\ChartDomain.fs" />
-    <Compile Include="ChartAPI\ChartSmith.fs" />
+    <Compile Include="ChartAPI\Chart2D\Chart2D_Scatter.fs" />
+    <Compile Include="ChartAPI\Chart2D\Chart2D_Area.fs" />
+    <Compile Include="ChartAPI\Chart2D\Chart2D_Funnel.fs" />
+    <Compile Include="ChartAPI\Chart2D\Chart2D_Bar.fs" />
+    <Compile Include="ChartAPI\Chart2D\Chart2D_Histogram.fs" />
+    <Compile Include="ChartAPI\Chart2D\Chart2D_Distribution.fs" />
+    <Compile Include="ChartAPI\Chart2D\Chart2D_Heatmap.fs" />
+    <Compile Include="ChartAPI\Chart2D\Chart2D_Finance.fs" />
+    <Compile Include="ChartAPI\Chart2D\Chart2D_Splom.fs" />
+    <Compile Include="ChartAPI\Chart2D\Chart2D_Statistical.fs" />
+    <Compile Include="ChartAPI\Chart3D\Chart3D_Scatter.fs" />
+    <Compile Include="ChartAPI\Chart3D\Chart3D_Surface.fs" />
+    <Compile Include="ChartAPI\Chart3D\Chart3D_VectorField.fs" />
+    <Compile Include="ChartAPI\Chart3D\Chart3D_Volume.fs" />
+    <Compile Include="ChartAPI\ChartPolar\ChartPolar_Scatter.fs" />
+    <Compile Include="ChartAPI\ChartPolar\ChartPolar_Bar.fs" />
+    <Compile Include="ChartAPI\ChartMap\ChartMap_Geo.fs" />
+    <Compile Include="ChartAPI\ChartMap\ChartMap_Mapbox.fs" />
+    <Compile Include="ChartAPI\ChartMap\ChartMap_Density.fs" />
+    <Compile Include="ChartAPI\ChartTernary\ChartTernary_Scatter.fs" />
+    <Compile Include="ChartAPI\ChartCarpet\ChartCarpet_Base.fs" />
+    <Compile Include="ChartAPI\ChartCarpet\ChartCarpet_Scatter.fs" />
+    <Compile Include="ChartAPI\ChartCarpet\ChartCarpet_Contour.fs" />
+    <Compile Include="ChartAPI\ChartDomain\ChartDomain_Pie.fs" />
+    <Compile Include="ChartAPI\ChartDomain\ChartDomain_Hierarchy.fs" />
+    <Compile Include="ChartAPI\ChartDomain\ChartDomain_Relations.fs" />
+    <Compile Include="ChartAPI\ChartDomain\ChartDomain_Table.fs" />
+    <Compile Include="ChartAPI\ChartDomain\ChartDomain_Icicle.fs" />
+    <Compile Include="ChartAPI\ChartSmith\ChartSmith_Scatter.fs" />
+    <Compile Include="ChartAPI\ChartComposite\ChartComposite_SetComparison.fs" />
     <None Include="Playground.fsx" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.4" />
     <PackageReference Include="DynamicObj" Version="[7.0.1, 8.0.0)" />
-    <PackageReference Include="Giraffe.ViewEngine.StrongName" Version="2.0.0-alpha1" />
+    <PackageReference Include="Giraffe.ViewEngine" Version="1.4.0" />
   </ItemGroup>
 </Project>
+
+

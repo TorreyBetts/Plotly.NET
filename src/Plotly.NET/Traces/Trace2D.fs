@@ -121,6 +121,7 @@ type Trace2DStyle() =
     /// <param name="Opacity">Sets the opacity of the trace.</param>
     /// <param name="Mode">Determines the drawing mode for this scatter trace. If the provided `mode` includes "text" then the `text` elements appear at the coordinates. Otherwise, the `text` elements appear on hover. If there are less than 20 points and the trace is not stacked then the default is "lines+markers". Otherwise, "lines".</param>
     /// <param name="Ids">Assigns id labels to each datum. These ids for object constancy of data points during animation. Should be an array of strings, not numbers or any other type.</param>
+    /// <param name="IdsEncoded">Assigns id labels as a base64-encoded typed array (plotly.js &gt;= 2.28.0). If provided, overrides <c>Ids</c>.</param>
     /// <param name="X">Sets the x coordinates.</param>
     /// <param name="MultiX">Sets the x coordinates.</param>
     /// <param name="X0">Alternate to `x`. Builds a linear space of x coordinates. Use with `dx` where `x0` is the starting coordinate and `dx` the step.</param>
@@ -131,6 +132,7 @@ type Trace2DStyle() =
     /// <param name="DY">Sets the y coordinate step. See `y0` for more info.</param>
     /// <param name="Text">Sets text elements associated with each (x,y) pair. If a single string, the same string appears over all the data points. If an array of string, the items are mapped in order to the this trace's (x,y) coordinates. If trace `hoverinfo` contains a "text" flag and "hovertext" is not set, these elements will be seen in the hover labels.</param>
     /// <param name="MultiText">Sets text elements associated with each (x,y) pair. If a single string, the same string appears over all the data points. If an array of string, the items are mapped in order to the this trace's (x,y) coordinates. If trace `hoverinfo` contains a "text" flag and "hovertext" is not set, these elements will be seen in the hover labels.</param>
+    /// <param name="MultiTextEncoded">Sets the per-point text array as a base64-encoded typed array (plotly.js &gt;= 2.28.0). If provided, overrides <c>Text</c>/<c>MultiText</c>.</param>
     /// <param name="TextPosition">Sets the positions of the `text` elements with respects to the (x,y) coordinates.</param>
     /// <param name="MultiTextPosition">Sets the positions of the `text` elements with respects to the (x,y) coordinates.</param>
     /// <param name="TextTemplate">Template string used for rendering the information text that appear on points. Note that this will override `textinfo`. Variables are inserted using %{variable}, for example "y: %{y}". Numbers are formatted using d3-format's syntax %{variable:d3-format}, for example "Price: %{y:$.2f}". https://github.com/d3/d3-format/tree/v1.4.5#d3-format for details on the formatting syntax. Dates are formatted using d3-time-format's syntax %{variable|d3-time-format}, for example "Day: %{2019-01-01|%A}". https://github.com/d3/d3-time-format/tree/v2.2.3#locale_format for details on the date formatting syntax. Every attributes that can be specified per-point (the ones that are `arrayOk: true`) are available.</param>
@@ -144,6 +146,7 @@ type Trace2DStyle() =
     /// <param name="YHoverFormat">Sets the hover text formatting rulefor `y` using d3 formatting mini-languages which are very similar to those in Python. For numbers, see: https://github.com/d3/d3-format/tree/v1.4.5#d3-format. And for dates see: https://github.com/d3/d3-time-format/tree/v2.2.3#locale_format. We add two items to d3's date formatter: "%h" for half of the year as a decimal number as well as "%{n}f" for fractional seconds with n digits. For example, "2016-10-13 09:15:23.456" with tickformat "%H~%M~%S.%2f" would display "09~15~23.46"By default the values are formatted using `xaxis.hoverformat`.</param>
     /// <param name="Meta">Assigns extra meta information associated with this trace that can be used in various text attributes. Attributes such as trace `name`, graph, axis and colorbar `title.text`, annotation `text` `rangeselector`, `updatemenues` and `sliders` `label` text all support `meta`. To access the trace `meta` values in an attribute in the same trace, simply use `%{meta[i]}` where `i` is the index or key of the `meta` item in question. To access trace `meta` in layout attributes, use `%{data[n[.meta[i]}` where `i` is the index or key of the `meta` and `n` is the trace index.</param>
     /// <param name="CustomData">Assigns extra data each datum. This may be useful when listening to hover, click and selection events. Note that, "scatter" traces also appends customdata items in the markers DOM elements</param>
+    /// <param name="CustomDataEncoded">Assigns extra data for each datum as a base64-encoded typed array (plotly.js &gt;= 2.28.0). If provided, overrides <c>CustomData</c>.</param>
     /// <param name="XAxis">Sets a reference between this trace's x coordinates and a 2D cartesian x axis. If "x" (the default value), the x coordinates refer to `layout.xaxis`. If "x2", the x coordinates refer to `layout.xaxis2`, and so on.</param>
     /// <param name="YAxis">Sets a reference between this trace's y coordinates and a 2D cartesian y axis. If "y" (the default value), the y coordinates refer to `layout.yaxis`. If "y2", the y coordinates refer to `layout.yaxis2`, and so on.</param>
     /// <param name="Orientation">Only relevant when `stackgroup` is used, and only the first `orientation` found in the `stackgroup` will be used - including if `visible` is "legendonly" but not if it is `false`. Sets the stacking direction. With "v" ("h"), the y (x) values of subsequent traces are added. Also affects the default value of `fill`.</param>
@@ -163,6 +166,7 @@ type Trace2DStyle() =
     /// <param name="XError">Sets the x error of this trace.</param>
     /// <param name="YError">Sets the y error of this trace.</param>
     /// <param name="SelectedPoints">Array containing integer indices of selected points. Has an effect only for traces that support selections. Note that an empty array means an empty selection where the `unselected` are turned on for all points, whereas, any other non-array values means no selection all where the `selected` and `unselected` styles have no effect.</param>
+    /// <param name="SelectedPointsEncoded">Sets the selected-point indices as a base64-encoded typed array (plotly.js &gt;= 2.28.0). If provided, overrides <c>SelectedPoints</c>.</param>
     /// <param name="Selected">Sets the style of selected points of this trace.</param>
     /// <param name="Unselected">Sets the style of unselected points of this trace.</param>
     /// <param name="ClipOnAxis">Determines whether or not markers and text nodes are clipped about the subplot axes. To show markers and text nodes above axis lines and tick labels, make sure to set `xaxis.layer` and `yaxis.layer` to "below traces".</param>
@@ -176,6 +180,8 @@ type Trace2DStyle() =
     /// <param name="XCalendar">Sets the calendar system to use with `x` date data.</param>
     /// <param name="YCalendar">Sets the calendar system to use with `y` date data.</param>
     /// <param name="UIRevision">Controls persistence of some user-driven changes to the trace: `constraintrange` in `parcoords` traces, as well as some `editable: true` modifications such as `name` and `colorbar.title`. Defaults to `layout.uirevision`. Note that other user-driven trace attribute changes are controlled by `layout` attributes: `trace.visible` is controlled by `layout.legend.uirevision`, `selectedpoints` is controlled by `layout.selectionrevision`, and `colorbar.(x|y)` (accessible with `config: {editable: true}`) is controlled by `layout.editrevision`. Trace changes are tracked by `uid`, which only falls back on trace index if no `uid` is provided. So if your app can add/remove traces before the end of the `data` array, such that the same trace has a different index, you can still preserve user-driven changes if you give each trace a `uid` that stays with it as it moves.</param>
+    /// <param name="XEncoded">Sets the x coordinates as a base64-encoded typed array (plotly.js &gt;= 2.28.0). If provided, overrides <c>X</c>/<c>MultiX</c>.</param>
+    /// <param name="YEncoded">Sets the y coordinates as a base64-encoded typed array (plotly.js &gt;= 2.28.0). If provided, overrides <c>Y</c>/<c>MultiY</c>.</param>
     static member Scatter
         (
             ?Name: string,
@@ -188,6 +194,7 @@ type Trace2DStyle() =
             ?Opacity: float,
             ?Mode: StyleParam.Mode,
             ?Ids: seq<#IConvertible>,
+            ?IdsEncoded: EncodedTypedArray,
             ?X: seq<#IConvertible>,
             ?MultiX: seq<seq<#IConvertible>>,
             ?X0: #IConvertible,
@@ -198,6 +205,7 @@ type Trace2DStyle() =
             ?DY: #IConvertible,
             ?Text: #IConvertible,
             ?MultiText: seq<#IConvertible>,
+            ?MultiTextEncoded: EncodedTypedArray,
             ?TextPosition: StyleParam.TextPosition,
             ?MultiTextPosition: seq<StyleParam.TextPosition>,
             ?TextTemplate: string,
@@ -211,6 +219,7 @@ type Trace2DStyle() =
             ?YHoverFormat: string,
             ?Meta: string,
             ?CustomData: seq<#IConvertible>,
+            ?CustomDataEncoded: EncodedTypedArray,
             ?XAxis: StyleParam.LinearAxisId,
             ?YAxis: StyleParam.LinearAxisId,
             ?Orientation: StyleParam.Orientation,
@@ -230,6 +239,7 @@ type Trace2DStyle() =
             ?XError: Error,
             ?YError: Error,
             ?SelectedPoints: seq<#IConvertible>,
+            ?SelectedPointsEncoded: EncodedTypedArray,
             ?Selected: TraceSelection,
             ?Unselected: TraceSelection,
             ?ClipOnAxis: bool,
@@ -242,27 +252,33 @@ type Trace2DStyle() =
             ?StackGaps: StyleParam.StackGaps,
             ?XCalendar: StyleParam.Calendar,
             ?YCalendar: StyleParam.Calendar,
-            ?UIRevision: string
+            ?UIRevision: string,
+            ?XEncoded: EncodedTypedArray,
+            ?YEncoded: EncodedTypedArray
         ) =
         fun (trace: ('T :> Trace)) ->
             trace
-            |> DynObj.withOptionalProperty               "name"             Name                                 
+            |> DynObj.withOptionalProperty               "name"             Name
             |> DynObj.withOptionalPropertyBy             "visible"          Visible                                 StyleParam.Visible.convert
-            |> DynObj.withOptionalProperty               "showlegend"       ShowLegend                           
+            |> DynObj.withOptionalProperty               "showlegend"       ShowLegend
             |> DynObj.withOptionalPropertyBy             "legend"           Legend                                  StyleParam.SubPlotId.convert
-            |> DynObj.withOptionalProperty               "legendrank"       LegendRank                           
-            |> DynObj.withOptionalProperty               "legendgroup"      LegendGroup                          
-            |> DynObj.withOptionalProperty               "legendgrouptitle" LegendGroupTitle                     
-            |> DynObj.withOptionalProperty               "opacity"          Opacity                              
+            |> DynObj.withOptionalProperty               "legendrank"       LegendRank
+            |> DynObj.withOptionalProperty               "legendgroup"      LegendGroup
+            |> DynObj.withOptionalProperty               "legendgrouptitle" LegendGroupTitle
+            |> DynObj.withOptionalProperty               "opacity"          Opacity
             |> DynObj.withOptionalPropertyBy             "mode"             Mode                                    StyleParam.Mode.convert
-            |> DynObj.withOptionalProperty               "ids"              Ids                                  
-            |> DynObj.withOptionalSingleOrMultiProperty  "x"                (X, MultiX)                          
-            |> DynObj.withOptionalProperty               "x0"               X0                                   
-            |> DynObj.withOptionalProperty               "dx"               DX                                   
-            |> DynObj.withOptionalSingleOrMultiProperty  "y"                (Y, MultiY)                          
-            |> DynObj.withOptionalProperty               "y0"               Y0                                   
+            |> DynObj.withOptionalProperty               "ids"              Ids
+            |> DynObj.withOptionalProperty               "ids"              IdsEncoded
+            |> DynObj.withOptionalSingleOrMultiProperty  "x"                (X, MultiX)
+            |> DynObj.withOptionalProperty               "x"                XEncoded
+            |> DynObj.withOptionalProperty               "x0"               X0
+            |> DynObj.withOptionalProperty               "dx"               DX
+            |> DynObj.withOptionalSingleOrMultiProperty  "y"                (Y, MultiY)
+            |> DynObj.withOptionalProperty               "y"                YEncoded
+            |> DynObj.withOptionalProperty               "y0"               Y0
             |> DynObj.withOptionalProperty               "dy"               DY                                   
             |> DynObj.withOptionalSingleOrMultiProperty  "text"             (Text, MultiText)                    
+            |> DynObj.withOptionalProperty               "text"             MultiTextEncoded
             |> DynObj.withOptionalSingleOrMultiPropertyBy"textposition"     (TextPosition, MultiTextPosition)       StyleParam.TextPosition.convert
             |> DynObj.withOptionalSingleOrMultiProperty  "texttemplate"     (TextTemplate, MultiTextTemplate)    
             |> DynObj.withOptionalSingleOrMultiProperty  "hovertext"        (HoverText, MultiHoverText)          
@@ -272,6 +288,7 @@ type Trace2DStyle() =
             |> DynObj.withOptionalProperty               "yhoverformat"     YHoverFormat                         
             |> DynObj.withOptionalProperty               "meta"             Meta                                 
             |> DynObj.withOptionalProperty               "customdata"       CustomData                           
+            |> DynObj.withOptionalProperty               "customdata"       CustomDataEncoded
             |> DynObj.withOptionalPropertyBy             "xaxis"            XAxis                                   StyleParam.LinearAxisId.convert
             |> DynObj.withOptionalPropertyBy             "yaxis"            YAxis                                   StyleParam.LinearAxisId.convert
             |> DynObj.withOptionalPropertyBy             "orientation"      Orientation                             StyleParam.Orientation.convert
@@ -291,6 +308,7 @@ type Trace2DStyle() =
             |> DynObj.withOptionalProperty               "error_x"          XError                               
             |> DynObj.withOptionalProperty               "error_y"          YError                               
             |> DynObj.withOptionalProperty               "selectedpoints"   SelectedPoints                       
+            |> DynObj.withOptionalProperty               "selectedpoints"   SelectedPointsEncoded
             |> DynObj.withOptionalProperty               "selected"         Selected                             
             |> DynObj.withOptionalProperty               "unselected"       Unselected                           
             |> DynObj.withOptionalProperty               "cliponaxis"       ClipOnAxis                           
@@ -318,21 +336,27 @@ type Trace2DStyle() =
     /// <param name="LegendGroupTitle">Sets the legend group title for this trace.</param>
     /// <param name="Opacity">Sets the opacity of the trace.</param>
     /// <param name="Ids">Assigns id labels to each datum. These ids for object constancy of data points during animation. Should be an array of strings, not numbers or any other type.</param>
+    /// <param name="IdsEncoded">Assigns id labels as a base64-encoded typed array (plotly.js &gt;= 2.28.0). If provided, overrides <c>Ids</c>.</param>
     /// <param name="X">Sets the x coordinates.</param>
     /// <param name="MultiX">Sets the x coordinates.</param>
+    /// <param name="XEncoded">Sets the x coordinates as a base64-encoded typed array (plotly.js &gt;= 2.28.0). If provided, overrides <c>X</c>/<c>MultiX</c>.</param>
     /// <param name="X0">Alternate to `x`. Builds a linear space of x coordinates. Use with `dx` where `x0` is the starting coordinate and `dx` the step.</param>
     /// <param name="DX">Sets the x coordinate step. See `x0` for more info.</param>
     /// <param name="Y">Sets the y coordinates.</param>
     /// <param name="MultiY">Sets the y coordinates.</param>
+    /// <param name="YEncoded">Sets the y coordinates as a base64-encoded typed array (plotly.js &gt;= 2.28.0). If provided, overrides <c>Y</c>/<c>MultiY</c>.</param>
     /// <param name="Y0">Alternate to `y`. Builds a linear space of y coordinates. Use with `dy` where `y0` is the starting coordinate and `dy` the step.</param>
     /// <param name="DY">Sets the y coordinate step. See `y0` for more info.</param>
     /// <param name="Base">Sets where the bar base is drawn (in position axis units). In "stack" or "relative" barmode, traces that set "base" will be excluded and drawn in "overlay" mode instead.</param>
     /// <param name="Width">Sets the bar width (in position axis units).</param>
     /// <param name="MultiWidth">Sets the bar width (in position axis units).</param>
+    /// <param name="MultiWidthEncoded">Sets the bar width array as a base64-encoded typed array (plotly.js &gt;= 2.28.0). If provided, overrides <c>Width</c>/<c>MultiWidth</c>.</param>
     /// <param name="Offset">Shifts the position where the bar is drawn (in position axis units). In "group" barmode, traces that set "offset" will be excluded and drawn in "overlay" mode instead.</param>
     /// <param name="MultiOffset">Shifts the position where the bar is drawn (in position axis units). In "group" barmode, traces that set "offset" will be excluded and drawn in "overlay" mode instead.</param>
+    /// <param name="MultiOffsetEncoded">Sets the bar offset array as a base64-encoded typed array (plotly.js &gt;= 2.28.0). If provided, overrides <c>Offset</c>/<c>MultiOffset</c>.</param>
     /// <param name="Text">Sets text elements associated with each (x,y) pair. If a single string, the same string appears over all the data points. If an array of string, the items are mapped in order to the this trace's (x,y) coordinates. If trace `hoverinfo` contains a "text" flag and "hovertext" is not set, these elements will be seen in the hover labels.</param>
     /// <param name="MultiText">Sets text elements associated with each (x,y) pair. If a single string, the same string appears over all the data points. If an array of string, the items are mapped in order to the this trace's (x,y) coordinates. If trace `hoverinfo` contains a "text" flag and "hovertext" is not set, these elements will be seen in the hover labels.</param>
+    /// <param name="MultiTextEncoded">Sets the per-point text array as a base64-encoded typed array (plotly.js &gt;= 2.28.0). If provided, overrides <c>Text</c>/<c>MultiText</c>.</param>
     /// <param name="TextPosition">Specifies the location of the `text`. "inside" positions `text` inside, next to the bar end (rotated and scaled if needed). "outside" positions `text` outside, next to the bar end (scaled if needed), unless there is another bar stacked on this one, then the text gets pushed inside. "auto" tries to position `text` inside the bar, but if the bar is too small and no bar is stacked on this one the text is moved outside. If "none", no text appears.</param>
     /// <param name="MultiTextPosition">Specifies the location of the `text`. "inside" positions `text` inside, next to the bar end (rotated and scaled if needed). "outside" positions `text` outside, next to the bar end (scaled if needed), unless there is another bar stacked on this one, then the text gets pushed inside. "auto" tries to position `text` inside the bar, but if the bar is too small and no bar is stacked on this one the text is moved outside. If "none", no text appears.</param>
     /// <param name="TextTemplate">Template string used for rendering the information text that appear on points. Note that this will override `textinfo`. Variables are inserted using %{variable}, for example "y: %{y}". Numbers are formatted using d3-format's syntax %{variable:d3-format}, for example "Price: %{y:$.2f}". https://github.com/d3/d3-format/tree/v1.4.5#d3-format for details on the formatting syntax. Dates are formatted using d3-time-format's syntax %{variable|d3-time-format}, for example "Day: %{2019-01-01|%A}". https://github.com/d3/d3-time-format/tree/v2.2.3#locale_format for details on the date formatting syntax. Every attributes that can be specified per-point (the ones that are `arrayOk: true`) are available.</param>
@@ -346,6 +370,7 @@ type Trace2DStyle() =
     /// <param name="YHoverFormat">Sets the hover text formatting rulefor `y` using d3 formatting mini-languages which are very similar to those in Python. For numbers, see: https://github.com/d3/d3-format/tree/v1.4.5#d3-format. And for dates see: https://github.com/d3/d3-time-format/tree/v2.2.3#locale_format. We add two items to d3's date formatter: "%h" for half of the year as a decimal number as well as "%{n}f" for fractional seconds with n digits. For example, "2016-10-13 09:15:23.456" with tickformat "%H~%M~%S.%2f" would display "09~15~23.46"By default the values are formatted using `xaxis.hoverformat`.</param>
     /// <param name="Meta">Assigns extra meta information associated with this trace that can be used in various text attributes. Attributes such as trace `name`, graph, axis and colorbar `title.text`, annotation `text` `rangeselector`, `updatemenues` and `sliders` `label` text all support `meta`. To access the trace `meta` values in an attribute in the same trace, simply use `%{meta[i]}` where `i` is the index or key of the `meta` item in question. To access trace `meta` in layout attributes, use `%{data[n[.meta[i]}` where `i` is the index or key of the `meta` and `n` is the trace index.</param>
     /// <param name="CustomData">Assigns extra data each datum. This may be useful when listening to hover, click and selection events. Note that, "scatter" traces also appends customdata items in the markers DOM elements</param>
+    /// <param name="CustomDataEncoded">Assigns extra data for each datum as a base64-encoded typed array (plotly.js &gt;= 2.28.0). If provided, overrides <c>CustomData</c>.</param>
     /// <param name="XAxis">Sets a reference between this trace's x coordinates and a 2D cartesian x axis. If "x" (the default value), the x coordinates refer to `layout.xaxis`. If "x2", the x coordinates refer to `layout.xaxis2`, and so on.</param>
     /// <param name="YAxis">Sets a reference between this trace's y coordinates and a 2D cartesian y axis. If "y" (the default value), the y coordinates refer to `layout.yaxis`. If "y2", the y coordinates refer to `layout.yaxis2`, and so on.</param>
     /// <param name="Orientation">Only relevant when `stackgroup` is used, and only the first `orientation` found in the `stackgroup` will be used - including if `visible` is "legendonly" but not if it is `false`. Sets the stacking direction. With "v" ("h"), the y (x) values of subsequent traces are added. Also affects the default value of `fill`.</param>
@@ -363,6 +388,7 @@ type Trace2DStyle() =
     /// <param name="XError">Sets the x error of this trace.</param>
     /// <param name="YError">Sets the y error of this trace.</param>
     /// <param name="SelectedPoints">Array containing integer indices of selected points. Has an effect only for traces that support selections. Note that an empty array means an empty selection where the `unselected` are turned on for all points, whereas, any other non-array values means no selection all where the `selected` and `unselected` styles have no effect.</param>
+    /// <param name="SelectedPointsEncoded">Sets the selected-point indices as a base64-encoded typed array (plotly.js &gt;= 2.28.0). If provided, overrides <c>SelectedPoints</c>.</param>
     /// <param name="Selected">Sets the style of selected points of this trace.</param>
     /// <param name="Unselected">Sets the style of unselected points of this trace.</param>
     /// <param name="ClipOnAxis">Determines whether or not markers and text nodes are clipped about the subplot axes. To show markers and text nodes above axis lines and tick labels, make sure to set `xaxis.layer` and `yaxis.layer` to "below traces".</param>
@@ -385,21 +411,27 @@ type Trace2DStyle() =
             ?LegendGroupTitle: Title,
             ?Opacity: float,
             ?Ids: seq<#IConvertible>,
+            ?IdsEncoded: EncodedTypedArray,
             ?X: seq<#IConvertible>,
             ?MultiX: seq<seq<#IConvertible>>,
+            ?XEncoded: EncodedTypedArray,
             ?X0: #IConvertible,
             ?DX: #IConvertible,
             ?Y: seq<#IConvertible>,
             ?MultiY: seq<seq<#IConvertible>>,
+            ?YEncoded: EncodedTypedArray,
             ?Y0: #IConvertible,
             ?DY: #IConvertible,
             ?Base: #IConvertible,
             ?Width: #IConvertible,
             ?MultiWidth: seq<#IConvertible>,
+            ?MultiWidthEncoded: EncodedTypedArray,
             ?Offset: #IConvertible,
             ?MultiOffset: seq<#IConvertible>,
+            ?MultiOffsetEncoded: EncodedTypedArray,
             ?Text: #IConvertible,
             ?MultiText: seq<#IConvertible>,
+            ?MultiTextEncoded: EncodedTypedArray,
             ?TextPosition: StyleParam.TextPosition,
             ?MultiTextPosition: seq<StyleParam.TextPosition>,
             ?TextTemplate: string,
@@ -413,6 +445,7 @@ type Trace2DStyle() =
             ?YHoverFormat: string,
             ?Meta: string,
             ?CustomData: seq<#IConvertible>,
+            ?CustomDataEncoded: EncodedTypedArray,
             ?XAxis: StyleParam.LinearAxisId,
             ?YAxis: StyleParam.LinearAxisId,
             ?Orientation: StyleParam.Orientation,
@@ -430,6 +463,7 @@ type Trace2DStyle() =
             ?XError: Error,
             ?YError: Error,
             ?SelectedPoints: seq<#IConvertible>,
+            ?SelectedPointsEncoded: EncodedTypedArray,
             ?Selected: TraceSelection,
             ?Unselected: TraceSelection,
             ?ClipOnAxis: bool,
@@ -454,16 +488,22 @@ type Trace2DStyle() =
             |> DynObj.withOptionalProperty                "legendgrouptitle" LegendGroupTitle                    
             |> DynObj.withOptionalProperty                "opacity"          Opacity                             
             |> DynObj.withOptionalProperty                "ids"              Ids                                 
+            |> DynObj.withOptionalProperty                "ids"              IdsEncoded
             |> DynObj.withOptionalSingleOrMultiProperty   "x"                (X, MultiX)                         
+            |> DynObj.withOptionalProperty                "x"                XEncoded
             |> DynObj.withOptionalProperty                "x0"               X0                                  
             |> DynObj.withOptionalProperty                "dx"               DX                                  
             |> DynObj.withOptionalSingleOrMultiProperty   "y"                (Y, MultiY)                         
+            |> DynObj.withOptionalProperty                "y"                YEncoded
             |> DynObj.withOptionalProperty                "y0"               Y0                                  
             |> DynObj.withOptionalProperty                "dy"               DY                                  
             |> DynObj.withOptionalProperty                "base"             Base                                
             |> DynObj.withOptionalSingleOrMultiProperty   "width"            (Width, MultiWidth)                 
+            |> DynObj.withOptionalProperty                "width"            MultiWidthEncoded
             |> DynObj.withOptionalSingleOrMultiProperty   "offset"           (Offset, MultiOffset)               
+            |> DynObj.withOptionalProperty                "offset"           MultiOffsetEncoded
             |> DynObj.withOptionalSingleOrMultiProperty   "text"             (Text, MultiText)                   
+            |> DynObj.withOptionalProperty                "text"             MultiTextEncoded
             |> DynObj.withOptionalSingleOrMultiPropertyBy "textposition"     (TextPosition, MultiTextPosition)    StyleParam.TextPosition.convert
             |> DynObj.withOptionalSingleOrMultiProperty   "texttemplate"     (TextTemplate, MultiTextTemplate)   
             |> DynObj.withOptionalSingleOrMultiProperty   "hovertext"        (HoverText, MultiHoverText)         
@@ -473,6 +513,7 @@ type Trace2DStyle() =
             |> DynObj.withOptionalProperty                "yhoverformat"     YHoverFormat                        
             |> DynObj.withOptionalProperty                "meta"             Meta                                
             |> DynObj.withOptionalProperty                "customdata"       CustomData                          
+            |> DynObj.withOptionalProperty                "customdata"       CustomDataEncoded
             |> DynObj.withOptionalPropertyBy              "xaxis"            XAxis                                StyleParam.LinearAxisId.convert
             |> DynObj.withOptionalPropertyBy              "yaxis"            YAxis                                StyleParam.LinearAxisId.convert
             |> DynObj.withOptionalPropertyBy              "orientation"      Orientation                          StyleParam.Orientation.convert
@@ -490,6 +531,7 @@ type Trace2DStyle() =
             |> DynObj.withOptionalProperty                "error_x"          XError                              
             |> DynObj.withOptionalProperty                "error_y"          YError                              
             |> DynObj.withOptionalProperty                "selectedpoints"   SelectedPoints                      
+            |> DynObj.withOptionalProperty                "selectedpoints"   SelectedPointsEncoded
             |> DynObj.withOptionalProperty                "selected"         Selected                            
             |> DynObj.withOptionalProperty                "unselected"       Unselected                          
             |> DynObj.withOptionalProperty                "cliponaxis"       ClipOnAxis                          
@@ -514,18 +556,22 @@ type Trace2DStyle() =
     /// <param name="LegendGroupTitle">Sets the legend group title for this trace.</param>
     /// <param name="Opacity">Sets the opacity of the trace.</param>
     /// <param name="Ids">Assigns id labels to each datum. These ids for object constancy of data points during animation. Should be an array of strings, not numbers or any other type.</param>
+    /// <param name="IdsEncoded">Assigns id labels as a base64-encoded typed array (plotly.js &gt;= 2.28.0). If provided, overrides <c>Ids</c>.</param>
     /// <param name="X">Sets the x coordinates.</param>
     /// <param name="MultiX">Sets the x coordinates.</param>
+    /// <param name="XEncoded">Sets the x coordinates as a base64-encoded typed array (plotly.js &gt;= 2.28.0). If provided, overrides <c>X</c>/<c>MultiX</c>.</param>
     /// <param name="X0">Alternate to `x`. Builds a linear space of x coordinates. Use with `dx` where `x0` is the starting coordinate and `dx` the step.</param>
     /// <param name="DX">Sets the x coordinate step. See `x0` for more info.</param>
     /// <param name="Y">Sets the y coordinates.</param>
     /// <param name="MultiY">Sets the y coordinates.</param>
+    /// <param name="YEncoded">Sets the y coordinates as a base64-encoded typed array (plotly.js &gt;= 2.28.0). If provided, overrides <c>Y</c>/<c>MultiY</c>.</param>
     /// <param name="Y0">Alternate to `y`. Builds a linear space of y coordinates. Use with `dy` where `y0` is the starting coordinate and `dy` the step.</param>
     /// <param name="DY">Sets the y coordinate step. See `y0` for more info.</param>
     /// <param name="Width">Sets the bar width (in position axis units).</param>
     /// <param name="Offset">Shifts the position where the bar is drawn (in position axis units). In "group" barmode, traces that set "offset" will be excluded and drawn in "overlay" mode instead.</param>
     /// <param name="Text">Sets text elements associated with each (x,y) pair. If a single string, the same string appears over all the data points. If an array of string, the items are mapped in order to the this trace's (x,y) coordinates. If trace `hoverinfo` contains a "text" flag and "hovertext" is not set, these elements will be seen in the hover labels.</param>
     /// <param name="MultiText">Sets text elements associated with each (x,y) pair. If a single string, the same string appears over all the data points. If an array of string, the items are mapped in order to the this trace's (x,y) coordinates. If trace `hoverinfo` contains a "text" flag and "hovertext" is not set, these elements will be seen in the hover labels.</param>
+    /// <param name="MultiTextEncoded">Sets the per-point text array as a base64-encoded typed array (plotly.js &gt;= 2.28.0). If provided, overrides <c>Text</c>/<c>MultiText</c>.</param>
     /// <param name="TextPosition">Specifies the location of the `text`. "inside" positions `text` inside, next to the bar end (rotated and scaled if needed). "outside" positions `text` outside, next to the bar end (scaled if needed), unless there is another bar stacked on this one, then the text gets pushed inside. "auto" tries to position `text` inside the bar, but if the bar is too small and no bar is stacked on this one the text is moved outside. If "none", no text appears.</param>
     /// <param name="MultiTextPosition">Specifies the location of the `text`. "inside" positions `text` inside, next to the bar end (rotated and scaled if needed). "outside" positions `text` outside, next to the bar end (scaled if needed), unless there is another bar stacked on this one, then the text gets pushed inside. "auto" tries to position `text` inside the bar, but if the bar is too small and no bar is stacked on this one the text is moved outside. If "none", no text appears.</param>
     /// <param name="TextTemplate">Template string used for rendering the information text that appear on points. Note that this will override `textinfo`. Variables are inserted using %{variable}, for example "y: %{y}". Numbers are formatted using d3-format's syntax %{variable:d3-format}, for example "Price: %{y:$.2f}". https://github.com/d3/d3-format/tree/v1.4.5#d3-format for details on the formatting syntax. Dates are formatted using d3-time-format's syntax %{variable|d3-time-format}, for example "Day: %{2019-01-01|%A}". https://github.com/d3/d3-time-format/tree/v2.2.3#locale_format for details on the date formatting syntax. Every attributes that can be specified per-point (the ones that are `arrayOk: true`) are available.</param>
@@ -539,6 +585,7 @@ type Trace2DStyle() =
     /// <param name="YHoverFormat">Sets the hover text formatting rulefor `y` using d3 formatting mini-languages which are very similar to those in Python. For numbers, see: https://github.com/d3/d3-format/tree/v1.4.5#d3-format. And for dates see: https://github.com/d3/d3-time-format/tree/v2.2.3#locale_format. We add two items to d3's date formatter: "%h" for half of the year as a decimal number as well as "%{n}f" for fractional seconds with n digits. For example, "2016-10-13 09:15:23.456" with tickformat "%H~%M~%S.%2f" would display "09~15~23.46"By default the values are formatted using `xaxis.hoverformat`.</param>
     /// <param name="Meta">Assigns extra meta information associated with this trace that can be used in various text attributes. Attributes such as trace `name`, graph, axis and colorbar `title.text`, annotation `text` `rangeselector`, `updatemenues` and `sliders` `label` text all support `meta`. To access the trace `meta` values in an attribute in the same trace, simply use `%{meta[i]}` where `i` is the index or key of the `meta` item in question. To access trace `meta` in layout attributes, use `%{data[n[.meta[i]}` where `i` is the index or key of the `meta` and `n` is the trace index.</param>
     /// <param name="CustomData">Assigns extra data each datum. This may be useful when listening to hover, click and selection events. Note that, "scatter" traces also appends customdata items in the markers DOM elements</param>
+    /// <param name="CustomDataEncoded">Assigns extra data for each datum as a base64-encoded typed array (plotly.js &gt;= 2.28.0). If provided, overrides <c>CustomData</c>.</param>
     /// <param name="XAxis">Sets a reference between this trace's x coordinates and a 2D cartesian x axis. If "x" (the default value), the x coordinates refer to `layout.xaxis`. If "x2", the x coordinates refer to `layout.xaxis2`, and so on.</param>
     /// <param name="YAxis">Sets a reference between this trace's y coordinates and a 2D cartesian y axis. If "y" (the default value), the y coordinates refer to `layout.yaxis`. If "y2", the y coordinates refer to `layout.yaxis2`, and so on.</param>
     /// <param name="Orientation">Only relevant when `stackgroup` is used, and only the first `orientation` found in the `stackgroup` will be used - including if `visible` is "legendonly" but not if it is `false`. Sets the stacking direction. With "v" ("h"), the y (x) values of subsequent traces are added. Also affects the default value of `fill`.</param>
@@ -555,6 +602,7 @@ type Trace2DStyle() =
     /// <param name="TextFont">Sets the font used for `text`.</param>
     /// <param name="TextInfo">Determines which trace information appear on the graph. In the case of having multiple funnels, percentages and totals are computed separately (per trace).</param>
     /// <param name="SelectedPoints">Array containing integer indices of selected points. Has an effect only for traces that support selections. Note that an empty array means an empty selection where the `unselected` are turned on for all points, whereas, any other non-array values means no selection all where the `selected` and `unselected` styles have no effect.</param>
+    /// <param name="SelectedPointsEncoded">Sets the selected-point indices as a base64-encoded typed array (plotly.js &gt;= 2.28.0). If provided, overrides <c>SelectedPoints</c>.</param>
     /// <param name="ClipOnAxis">Determines whether the text nodes are clipped about the subplot axes. To show the text nodes above axis lines and tick labels, make sure to set `xaxis.layer` and `yaxis.layer` to "below traces".</param>
     /// <param name="Connector">Sets the funnel connector of this trace</param>
     /// <param name="Constraintext">Constrain the size of text inside or outside a bar to be no larger than the bar itself.</param>
@@ -574,18 +622,22 @@ type Trace2DStyle() =
             ?LegendGroupTitle: Title,
             ?Opacity: float,
             ?Ids: seq<#IConvertible>,
+            ?IdsEncoded: EncodedTypedArray,
             ?X: seq<#IConvertible>,
             ?MultiX: seq<seq<#IConvertible>>,
+            ?XEncoded: EncodedTypedArray,
             ?X0: #IConvertible,
             ?DX: #IConvertible,
             ?Y: seq<#IConvertible>,
             ?MultiY: seq<seq<#IConvertible>>,
+            ?YEncoded: EncodedTypedArray,
             ?Y0: #IConvertible,
             ?DY: #IConvertible,
             ?Width: float,
             ?Offset: float,
             ?Text: #IConvertible,
             ?MultiText: seq<#IConvertible>,
+            ?MultiTextEncoded: EncodedTypedArray,
             ?TextPosition: StyleParam.TextPosition,
             ?MultiTextPosition: seq<StyleParam.TextPosition>,
             ?TextTemplate: string,
@@ -599,6 +651,7 @@ type Trace2DStyle() =
             ?YHoverFormat: string,
             ?Meta: string,
             ?CustomData: seq<#IConvertible>,
+            ?CustomDataEncoded: EncodedTypedArray,
             ?XAxis: StyleParam.LinearAxisId,
             ?YAxis: StyleParam.LinearAxisId,
             ?Orientation: StyleParam.Orientation,
@@ -615,6 +668,7 @@ type Trace2DStyle() =
             ?TextFont: Font,
             ?TextInfo: StyleParam.TextInfo,
             ?SelectedPoints: seq<#IConvertible>,
+            ?SelectedPointsEncoded: EncodedTypedArray,
             ?ClipOnAxis: bool,
             ?Connector: FunnelConnector,
             ?Constraintext: StyleParam.ConstrainText,
@@ -636,15 +690,19 @@ type Trace2DStyle() =
             |> DynObj.withOptionalProperty                "legendgrouptitle"  LegendGroupTitle                   
             |> DynObj.withOptionalProperty                "opacity"           Opacity                            
             |> DynObj.withOptionalProperty                "ids"               Ids                                
+            |> DynObj.withOptionalProperty                "ids"               IdsEncoded
             |> DynObj.withOptionalSingleOrMultiProperty   "x"                 (X, MultiX)                        
+            |> DynObj.withOptionalProperty                "x"                 XEncoded
             |> DynObj.withOptionalProperty                "x0"                X0                                 
             |> DynObj.withOptionalProperty                "dx"                DX                                 
             |> DynObj.withOptionalSingleOrMultiProperty   "y"                 (Y, MultiY)                        
+            |> DynObj.withOptionalProperty                "y"                 YEncoded
             |> DynObj.withOptionalProperty                "y0"                Y0                                 
             |> DynObj.withOptionalProperty                "dy"                DY                                 
             |> DynObj.withOptionalProperty                "width"             Width                              
             |> DynObj.withOptionalProperty                "offset"            Offset                             
             |> DynObj.withOptionalSingleOrMultiProperty   "text"              (Text, MultiText)                  
+            |> DynObj.withOptionalProperty                "text"              MultiTextEncoded
             |> DynObj.withOptionalSingleOrMultiPropertyBy "textposition"      (TextPosition, MultiTextPosition)   StyleParam.TextPosition.convert
             |> DynObj.withOptionalSingleOrMultiProperty   "texttemplate"      (TextTemplate, MultiTextTemplate)  
             |> DynObj.withOptionalSingleOrMultiProperty   "hovertext"         (HoverText, MultiHoverText)        
@@ -654,6 +712,7 @@ type Trace2DStyle() =
             |> DynObj.withOptionalProperty                "yhoverformat"      YHoverFormat                       
             |> DynObj.withOptionalProperty                "meta"              Meta                               
             |> DynObj.withOptionalProperty                "customdata"        CustomData                         
+            |> DynObj.withOptionalProperty                "customdata"        CustomDataEncoded
             |> DynObj.withOptionalPropertyBy              "xaxis"             XAxis                               StyleParam.LinearAxisId.convert
             |> DynObj.withOptionalPropertyBy              "yaxis"             YAxis                               StyleParam.LinearAxisId.convert
             |> DynObj.withOptionalPropertyBy              "orientation"       Orientation                         StyleParam.Orientation.convert
@@ -670,6 +729,7 @@ type Trace2DStyle() =
             |> DynObj.withOptionalProperty                "textfont"          TextFont                           
             |> DynObj.withOptionalPropertyBy              "textinfo"          TextInfo                            StyleParam.TextInfo.convert
             |> DynObj.withOptionalProperty                "selectedpoints"    SelectedPoints                     
+            |> DynObj.withOptionalProperty                "selectedpoints"    SelectedPointsEncoded
             |> DynObj.withOptionalProperty                "cliponaxis"        ClipOnAxis                         
             |> DynObj.withOptionalProperty                "connector"         Connector                          
             |> DynObj.withOptionalPropertyBy              "constraintext"     Constraintext                       StyleParam.ConstrainText.convert
@@ -692,22 +752,28 @@ type Trace2DStyle() =
     /// <param name="LegendGroupTitle">Sets the legend group title for this trace.</param>
     /// <param name="Opacity">Sets the opacity of the trace.</param>
     /// <param name="Ids">Assigns id labels to each datum. These ids for object constancy of data points during animation. Should be an array of strings, not numbers or any other type.</param>
+    /// <param name="IdsEncoded">Assigns id labels as a base64-encoded typed array (plotly.js &gt;= 2.28.0). If provided, overrides <c>Ids</c>.</param>
     /// <param name="X">Sets the x coordinates.</param>
     /// <param name="MultiX">Sets the x coordinates.</param>
+    /// <param name="XEncoded">Sets the x coordinates as a base64-encoded typed array (plotly.js &gt;= 2.28.0). If provided, overrides <c>X</c>/<c>MultiX</c>.</param>
     /// <param name="X0">Alternate to `x`. Builds a linear space of x coordinates. Use with `dx` where `x0` is the starting coordinate and `dx` the step.</param>
     /// <param name="DX">Sets the x coordinate step. See `x0` for more info.</param>
     /// <param name="Y">Sets the y coordinates.</param>
     /// <param name="MultiY">Sets the y coordinates.</param>
+    /// <param name="YEncoded">Sets the y coordinates as a base64-encoded typed array (plotly.js &gt;= 2.28.0). If provided, overrides <c>Y</c>/<c>MultiY</c>.</param>
     /// <param name="Y0">Alternate to `y`. Builds a linear space of y coordinates. Use with `dy` where `y0` is the starting coordinate and `dy` the step.</param>
     /// <param name="DY">Sets the y coordinate step. See `y0` for more info.</param>
     /// <param name="Base">Sets where the bar base is drawn (in position axis units).</param>
     /// <param name="Width">Sets the bar width (in position axis units).</param>
     /// <param name="MultiWidth">Sets the bar width (in position axis units).</param>
+    /// <param name="MultiWidthEncoded">Sets the bar width array as a base64-encoded typed array (plotly.js &gt;= 2.28.0). If provided, overrides <c>Width</c>/<c>MultiWidth</c>.</param>
     /// <param name="Measure">An array containing types of values. By default the values are considered as 'relative'. However; it is possible to use 'total' to compute the sums. Also 'absolute' could be applied to reset the computed total or to declare an initial value where needed.</param>
     /// <param name="Offset">Shifts the position where the bar is drawn (in position axis units). In "group" barmode, traces that set "offset" will be excluded and drawn in "overlay" mode instead.</param>
     /// <param name="MultiOffset">Shifts the position where the bar is drawn (in position axis units). In "group" barmode, traces that set "offset" will be excluded and drawn in "overlay" mode instead.</param>
+    /// <param name="MultiOffsetEncoded">Sets the bar offset array as a base64-encoded typed array (plotly.js &gt;= 2.28.0). If provided, overrides <c>Offset</c>/<c>MultiOffset</c>.</param>
     /// <param name="Text">Sets text elements associated with each (x,y) pair. If a single string, the same string appears over all the data points. If an array of string, the items are mapped in order to the this trace's (x,y) coordinates. If trace `hoverinfo` contains a "text" flag and "hovertext" is not set, these elements will be seen in the hover labels.</param>
     /// <param name="MultiText">Sets text elements associated with each (x,y) pair. If a single string, the same string appears over all the data points. If an array of string, the items are mapped in order to the this trace's (x,y) coordinates. If trace `hoverinfo` contains a "text" flag and "hovertext" is not set, these elements will be seen in the hover labels.</param>
+    /// <param name="MultiTextEncoded">Sets the per-point text array as a base64-encoded typed array (plotly.js &gt;= 2.28.0). If provided, overrides <c>Text</c>/<c>MultiText</c>.</param>
     /// <param name="TextPosition">Specifies the location of the `text`. "inside" positions `text` inside, next to the bar end (rotated and scaled if needed). "outside" positions `text` outside, next to the bar end (scaled if needed), unless there is another bar stacked on this one, then the text gets pushed inside. "auto" tries to position `text` inside the bar, but if the bar is too small and no bar is stacked on this one the text is moved outside. If "none", no text appears.</param>
     /// <param name="MultiTextPosition">Specifies the location of the `text`. "inside" positions `text` inside, next to the bar end (rotated and scaled if needed). "outside" positions `text` outside, next to the bar end (scaled if needed), unless there is another bar stacked on this one, then the text gets pushed inside. "auto" tries to position `text` inside the bar, but if the bar is too small and no bar is stacked on this one the text is moved outside. If "none", no text appears.</param>
     /// <param name="TextTemplate">Template string used for rendering the information text that appear on points. Note that this will override `textinfo`. Variables are inserted using %{variable}, for example "y: %{y}". Numbers are formatted using d3-format's syntax %{variable:d3-format}, for example "Price: %{y:$.2f}". https://github.com/d3/d3-format/tree/v1.4.5#d3-format for details on the formatting syntax. Dates are formatted using d3-time-format's syntax %{variable|d3-time-format}, for example "Day: %{2019-01-01|%A}". https://github.com/d3/d3-time-format/tree/v2.2.3#locale_format for details on the date formatting syntax. Every attributes that can be specified per-point (the ones that are `arrayOk: true`) are available.</param>
@@ -721,6 +787,7 @@ type Trace2DStyle() =
     /// <param name="YHoverFormat">Sets the hover text formatting rulefor `y` using d3 formatting mini-languages which are very similar to those in Python. For numbers, see: https://github.com/d3/d3-format/tree/v1.4.5#d3-format. And for dates see: https://github.com/d3/d3-time-format/tree/v2.2.3#locale_format. We add two items to d3's date formatter: "%h" for half of the year as a decimal number as well as "%{n}f" for fractional seconds with n digits. For example, "2016-10-13 09:15:23.456" with tickformat "%H~%M~%S.%2f" would display "09~15~23.46"By default the values are formatted using `xaxis.hoverformat`.</param>
     /// <param name="Meta">Assigns extra meta information associated with this trace that can be used in various text attributes. Attributes such as trace `name`, graph, axis and colorbar `title.text`, annotation `text` `rangeselector`, `updatemenues` and `sliders` `label` text all support `meta`. To access the trace `meta` values in an attribute in the same trace, simply use `%{meta[i]}` where `i` is the index or key of the `meta` item in question. To access trace `meta` in layout attributes, use `%{data[n[.meta[i]}` where `i` is the index or key of the `meta` and `n` is the trace index.</param>
     /// <param name="CustomData">Assigns extra data each datum. This may be useful when listening to hover, click and selection events. Note that, "scatter" traces also appends customdata items in the markers DOM elements</param>
+    /// <param name="CustomDataEncoded">Assigns extra data for each datum as a base64-encoded typed array (plotly.js &gt;= 2.28.0). If provided, overrides <c>CustomData</c>.</param>
     /// <param name="XAxis">Sets a reference between this trace's x coordinates and a 2D cartesian x axis. If "x" (the default value), the x coordinates refer to `layout.xaxis`. If "x2", the x coordinates refer to `layout.xaxis2`, and so on.</param>
     /// <param name="YAxis">Sets a reference between this trace's y coordinates and a 2D cartesian y axis. If "y" (the default value), the y coordinates refer to `layout.yaxis`. If "y2", the y coordinates refer to `layout.yaxis2`, and so on.</param>
     /// <param name="Orientation">Only relevant when `stackgroup` is used, and only the first `orientation` found in the `stackgroup` will be used - including if `visible` is "legendonly" but not if it is `false`. Sets the stacking direction. With "v" ("h"), the y (x) values of subsequent traces are added. Also affects the default value of `fill`.</param>
@@ -736,6 +803,7 @@ type Trace2DStyle() =
     /// <param name="TextFont">Sets the font used for `text`.</param>
     /// <param name="TextInfo">Determines which trace information appear on the graph. In the case of having multiple funnels, percentages and totals are computed separately (per trace).</param>
     /// <param name="SelectedPoints">Array containing integer indices of selected points. Has an effect only for traces that support selections. Note that an empty array means an empty selection where the `unselected` are turned on for all points, whereas, any other non-array values means no selection all where the `selected` and `unselected` styles have no effect.</param>
+    /// <param name="SelectedPointsEncoded">Sets the selected-point indices as a base64-encoded typed array (plotly.js &gt;= 2.28.0). If provided, overrides <c>SelectedPoints</c>.</param>
     /// <param name="ClipOnAxis">Determines whether the text nodes are clipped about the subplot axes. To show the text nodes above axis lines and tick labels, make sure to set `xaxis.layer` and `yaxis.layer` to "below traces".</param>
     /// <param name="Connector">Sets the waterfall connector of this trace</param>
     /// <param name="Constraintext">Constrain the size of text inside or outside a bar to be no larger than the bar itself.</param>
@@ -758,22 +826,28 @@ type Trace2DStyle() =
             ?LegendGroupTitle: Title,
             ?Opacity: float,
             ?Ids: seq<#IConvertible>,
+            ?IdsEncoded: EncodedTypedArray,
             ?X: seq<#IConvertible>,
             ?MultiX: seq<seq<#IConvertible>>,
+            ?XEncoded: EncodedTypedArray,
             ?X0: #IConvertible,
             ?DX: #IConvertible,
             ?Y: seq<#IConvertible>,
             ?MultiY: seq<seq<#IConvertible>>,
+            ?YEncoded: EncodedTypedArray,
             ?Y0: #IConvertible,
             ?DY: #IConvertible,
             ?Base: #IConvertible,
             ?Width: float,
             ?MultiWidth: seq<float>,
+            ?MultiWidthEncoded: EncodedTypedArray,
             ?Measure: StyleParam.WaterfallMeasure seq,
             ?Offset: #IConvertible,
             ?MultiOffset: seq<#IConvertible>,
+            ?MultiOffsetEncoded: EncodedTypedArray,
             ?Text: #IConvertible,
             ?MultiText: seq<#IConvertible>,
+            ?MultiTextEncoded: EncodedTypedArray,
             ?TextPosition: StyleParam.TextPosition,
             ?MultiTextPosition: seq<StyleParam.TextPosition>,
             ?TextTemplate: string,
@@ -787,6 +861,7 @@ type Trace2DStyle() =
             ?YHoverFormat: string,
             ?Meta: string,
             ?CustomData: seq<#IConvertible>,
+            ?CustomDataEncoded: EncodedTypedArray,
             ?XAxis: StyleParam.LinearAxisId,
             ?YAxis: StyleParam.LinearAxisId,
             ?Orientation: StyleParam.Orientation,
@@ -802,6 +877,7 @@ type Trace2DStyle() =
             ?TextFont: Font,
             ?TextInfo: StyleParam.TextInfo,
             ?SelectedPoints: seq<#IConvertible>,
+            ?SelectedPointsEncoded: EncodedTypedArray,
             ?ClipOnAxis: bool,
             ?Connector: WaterfallConnector,
             ?Constraintext: StyleParam.ConstrainText,
@@ -826,17 +902,23 @@ type Trace2DStyle() =
             |> DynObj.withOptionalProperty                   "legendgrouptitle"    LegendGroupTitle                   
             |> DynObj.withOptionalProperty                   "opacity"             Opacity                            
             |> DynObj.withOptionalProperty                   "ids"                 Ids                                
+            |> DynObj.withOptionalProperty                   "ids"                 IdsEncoded
             |> DynObj.withOptionalSingleOrMultiProperty      "x"                   (X, MultiX)                        
+            |> DynObj.withOptionalProperty                   "x"                   XEncoded
             |> DynObj.withOptionalProperty                   "x0"                  X0                                 
             |> DynObj.withOptionalProperty                   "dx"                  DX                                 
             |> DynObj.withOptionalSingleOrMultiProperty      "y"                   (Y, MultiY)                        
+            |> DynObj.withOptionalProperty                   "y"                   YEncoded
             |> DynObj.withOptionalProperty                   "y0"                  Y0                                 
             |> DynObj.withOptionalProperty                   "dy"                  DY                                 
             |> DynObj.withOptionalProperty                   "base"                Base                               
             |> DynObj.withOptionalSingleOrMultiProperty      "width"               (Width, MultiWidth)                
+            |> DynObj.withOptionalProperty                   "width"               MultiWidthEncoded
             |> DynObj.withOptionalPropertyBy                 "measure"             Measure                             (Seq.map StyleParam.WaterfallMeasure.convert)
             |> DynObj.withOptionalSingleOrMultiProperty      "offset"              (Offset, MultiOffset)              
+            |> DynObj.withOptionalProperty                   "offset"              MultiOffsetEncoded
             |> DynObj.withOptionalSingleOrMultiProperty      "text"                (Text, MultiText)                  
+            |> DynObj.withOptionalProperty                   "text"                MultiTextEncoded
             |> DynObj.withOptionalSingleOrMultiPropertyBy    "textposition"        (TextPosition, MultiTextPosition)   StyleParam.TextPosition.convert
             |> DynObj.withOptionalSingleOrMultiProperty      "texttemplate"        (TextTemplate, MultiTextTemplate)  
             |> DynObj.withOptionalSingleOrMultiProperty      "hovertext"           (HoverText, MultiHoverText)        
@@ -846,6 +928,7 @@ type Trace2DStyle() =
             |> DynObj.withOptionalProperty                   "yhoverformat"        YHoverFormat                       
             |> DynObj.withOptionalProperty                   "meta"                Meta                               
             |> DynObj.withOptionalProperty                   "customdata"          CustomData                         
+            |> DynObj.withOptionalProperty                   "customdata"          CustomDataEncoded
             |> DynObj.withOptionalPropertyBy                 "xaxis"               XAxis                               StyleParam.LinearAxisId.convert
             |> DynObj.withOptionalPropertyBy                 "yaxis"               YAxis                               StyleParam.LinearAxisId.convert
             |> DynObj.withOptionalPropertyBy                 "orientation"         Orientation                         StyleParam.Orientation.convert
@@ -861,6 +944,7 @@ type Trace2DStyle() =
             |> DynObj.withOptionalProperty                   "textfont"            TextFont                           
             |> DynObj.withOptionalProperty                   "textinfo"            TextInfo                           
             |> DynObj.withOptionalProperty                   "selectedpoints"      SelectedPoints                     
+            |> DynObj.withOptionalProperty                   "selectedpoints"      SelectedPointsEncoded
             |> DynObj.withOptionalProperty                   "cliponaxis"          ClipOnAxis                         
             |> DynObj.withOptionalProperty                   "connector"           Connector                          
             |> DynObj.withOptionalPropertyBy                 "constraintext"       Constraintext                       StyleParam.ConstrainText.convert
@@ -885,12 +969,16 @@ type Trace2DStyle() =
     /// <param name="LegendGroupTitle">Sets the legend group title for this trace.</param>
     /// <param name="Opacity">Sets the opacity of the trace.</param>
     /// <param name="Ids">Assigns id labels to each datum. These ids for object constancy of data points during animation. Should be an array of strings, not numbers or any other type.</param>
+    /// <param name="IdsEncoded">Assigns id labels as a base64-encoded typed array (plotly.js &gt;= 2.28.0). If provided, overrides <c>Ids</c>.</param>
     /// <param name="X">Sets the sample data to be binned on the x axis.</param>
     /// <param name="MultiX">Sets the sample data to be binned on the x axis.</param>
+    /// <param name="XEncoded">Sets the x coordinates as a base64-encoded typed array (plotly.js &gt;= 2.28.0). If provided, overrides <c>X</c>/<c>MultiX</c>.</param>
     /// <param name="Y">Sets the sample data to be binned on the y axis.</param>
     /// <param name="MultiY">Sets the sample data to be binned on the y axis.</param>
+    /// <param name="YEncoded">Sets the y coordinates as a base64-encoded typed array (plotly.js &gt;= 2.28.0). If provided, overrides <c>Y</c>/<c>MultiY</c>.</param>
     /// <param name="Text">Sets text elements associated with each (x,y) pair. If a single string, the same string appears over all the data points. If an array of string, the items are mapped in order to the this trace's (x,y) coordinates. If trace `hoverinfo` contains a "text" flag and "hovertext" is not set, these elements will be seen in the hover labels.</param>
     /// <param name="MultiText">Sets text elements associated with each (x,y) pair. If a single string, the same string appears over all the data points. If an array of string, the items are mapped in order to the this trace's (x,y) coordinates. If trace `hoverinfo` contains a "text" flag and "hovertext" is not set, these elements will be seen in the hover labels.</param>
+    /// <param name="MultiTextEncoded">Sets the per-point text array as a base64-encoded typed array (plotly.js &gt;= 2.28.0). If provided, overrides <c>Text</c>/<c>MultiText</c>.</param>
     /// <param name="TextPosition">Sets the positions of the `text` elements with respects to the (x,y) coordinates.</param>
     /// <param name="TextTemplate">Template string used for rendering the information text that appear on points. Note that this will override `textinfo`. Variables are inserted using %{variable}, for example "y: %{y}". Numbers are formatted using d3-format's syntax %{variable:d3-format}, for example "Price: %{y:$.2f}". https://github.com/d3/d3-format/tree/v1.4.5#d3-format for details on the formatting syntax. Dates are formatted using d3-time-format's syntax %{variable|d3-time-format}, for example "Day: %{2019-01-01|%A}". https://github.com/d3/d3-time-format/tree/v2.2.3#locale_format for details on the date formatting syntax. Every attributes that can be specified per-point (the ones that are `arrayOk: true`) are available.</param>
     /// <param name="MultiTextTemplate">Template string used for rendering the information text that appear on points. Note that this will override `textinfo`. Variables are inserted using %{variable}, for example "y: %{y}". Numbers are formatted using d3-format's syntax %{variable:d3-format}, for example "Price: %{y:$.2f}". https://github.com/d3/d3-format/tree/v1.4.5#d3-format for details on the formatting syntax. Dates are formatted using d3-time-format's syntax %{variable|d3-time-format}, for example "Day: %{2019-01-01|%A}". https://github.com/d3/d3-time-format/tree/v2.2.3#locale_format for details on the date formatting syntax. Every attributes that can be specified per-point (the ones that are `arrayOk: true`) are available.</param>
@@ -903,6 +991,7 @@ type Trace2DStyle() =
     /// <param name="YHoverFormat">Sets the hover text formatting rulefor `y` using d3 formatting mini-languages which are very similar to those in Python. For numbers, see: https://github.com/d3/d3-format/tree/v1.4.5#d3-format. And for dates see: https://github.com/d3/d3-time-format/tree/v2.2.3#locale_format. We add two items to d3's date formatter: "%h" for half of the year as a decimal number as well as "%{n}f" for fractional seconds with n digits. For example, "2016-10-13 09:15:23.456" with tickformat "%H~%M~%S.%2f" would display "09~15~23.46"By default the values are formatted using `xaxis.hoverformat`.</param>
     /// <param name="Meta">Assigns extra meta information associated with this trace that can be used in various text attributes. Attributes such as trace `name`, graph, axis and colorbar `title.text`, annotation `text` `rangeselector`, `updatemenues` and `sliders` `label` text all support `meta`. To access the trace `meta` values in an attribute in the same trace, simply use `%{meta[i]}` where `i` is the index or key of the `meta` item in question. To access trace `meta` in layout attributes, use `%{data[n[.meta[i]}` where `i` is the index or key of the `meta` and `n` is the trace index.</param>
     /// <param name="CustomData">Assigns extra data each datum. This may be useful when listening to hover, click and selection events. Note that, "scatter" traces also appends customdata items in the markers DOM elements</param>
+    /// <param name="CustomDataEncoded">Assigns extra data for each datum as a base64-encoded typed array (plotly.js &gt;= 2.28.0). If provided, overrides <c>CustomData</c>.</param>
     /// <param name="XAxis">Sets a reference between this trace's x coordinates and a 2D cartesian x axis. If "x" (the default value), the x coordinates refer to `layout.xaxis`. If "x2", the x coordinates refer to `layout.xaxis2`, and so on.</param>
     /// <param name="YAxis">Sets a reference between this trace's y coordinates and a 2D cartesian y axis. If "y" (the default value), the y coordinates refer to `layout.yaxis`. If "y2", the y coordinates refer to `layout.yaxis2`, and so on.</param>
     /// <param name="Orientation">Sets the orientation of the bars. With "v" ("h"), the value of the each bar spans along the vertical (horizontal).</param>
@@ -924,6 +1013,7 @@ type Trace2DStyle() =
     /// <param name="XError">Sets the x error of this trace.</param>
     /// <param name="YError">Sets the y error of this trace.</param>
     /// <param name="SelectedPoints">Array containing integer indices of selected points. Has an effect only for traces that support selections. Note that an empty array means an empty selection where the `unselected` are turned on for all points, whereas, any other non-array values means no selection all where the `selected` and `unselected` styles have no effect.</param>
+    /// <param name="SelectedPointsEncoded">Sets the selected-point indices as a base64-encoded typed array (plotly.js &gt;= 2.28.0). If provided, overrides <c>SelectedPoints</c>.</param>
     /// <param name="Selected">Sets the style of selected points of this trace.</param>
     /// <param name="Unselected">Sets the style of unselected points of this trace.</param>
     /// <param name="ClipOnAxis">Determines whether the text nodes are clipped about the subplot axes. To show the text nodes above axis lines and tick labels, make sure to set `xaxis.layer` and `yaxis.layer` to "below traces".</param>
@@ -947,12 +1037,16 @@ type Trace2DStyle() =
             ?LegendGroupTitle: Title,
             ?Opacity: float,
             ?Ids: seq<#IConvertible>,
+            ?IdsEncoded: EncodedTypedArray,
             ?X: seq<#IConvertible>,
             ?MultiX: seq<seq<#IConvertible>>,
+            ?XEncoded: EncodedTypedArray,
             ?Y: seq<#IConvertible>,
             ?MultiY: seq<seq<#IConvertible>>,
+            ?YEncoded: EncodedTypedArray,
             ?Text: #IConvertible,
             ?MultiText: seq<#IConvertible>,
+            ?MultiTextEncoded: EncodedTypedArray,
             ?TextPosition: StyleParam.TextPosition,
             ?TextTemplate: string,
             ?MultiTextTemplate: seq<string>,
@@ -965,6 +1059,7 @@ type Trace2DStyle() =
             ?YHoverFormat: string,
             ?Meta: string,
             ?CustomData: seq<#IConvertible>,
+            ?CustomDataEncoded: EncodedTypedArray,
             ?XAxis: StyleParam.LinearAxisId,
             ?YAxis: StyleParam.LinearAxisId,
             ?Orientation: StyleParam.Orientation,
@@ -986,6 +1081,7 @@ type Trace2DStyle() =
             ?XError: Error,
             ?YError: Error,
             ?SelectedPoints: seq<#IConvertible>,
+            ?SelectedPointsEncoded: EncodedTypedArray,
             ?Selected: TraceSelection,
             ?Unselected: TraceSelection,
             ?ClipOnAxis: bool,
@@ -1011,9 +1107,13 @@ type Trace2DStyle() =
             |> DynObj.withOptionalProperty               "legendgrouptitle" LegendGroupTitle                     
             |> DynObj.withOptionalProperty               "opacity"          Opacity                              
             |> DynObj.withOptionalProperty               "ids"              Ids                                  
+            |> DynObj.withOptionalProperty               "ids"              IdsEncoded
             |> DynObj.withOptionalSingleOrMultiProperty  "x"                (X, MultiX)                          
+            |> DynObj.withOptionalProperty               "x"                XEncoded
             |> DynObj.withOptionalSingleOrMultiProperty  "y"                (Y, MultiY)                          
+            |> DynObj.withOptionalProperty               "y"                YEncoded
             |> DynObj.withOptionalSingleOrMultiProperty  "text"             (Text, MultiText)                    
+            |> DynObj.withOptionalProperty               "text"             MultiTextEncoded
             |> DynObj.withOptionalPropertyBy             "textposition"     TextPosition                         StyleParam.TextPosition.convert
             |> DynObj.withOptionalSingleOrMultiProperty  "texttemplate"     (TextTemplate, MultiTextTemplate)    
             |> DynObj.withOptionalSingleOrMultiProperty  "hovertext"        (HoverText, MultiHoverText)          
@@ -1023,6 +1123,7 @@ type Trace2DStyle() =
             |> DynObj.withOptionalProperty               "yhoverformat"     YHoverFormat                         
             |> DynObj.withOptionalProperty               "meta"             Meta                                 
             |> DynObj.withOptionalProperty               "customdata"       CustomData                           
+            |> DynObj.withOptionalProperty               "customdata"       CustomDataEncoded
             |> DynObj.withOptionalPropertyBy             "xaxis"            XAxis                                StyleParam.LinearAxisId.convert
             |> DynObj.withOptionalPropertyBy             "yaxis"            YAxis                                StyleParam.LinearAxisId.convert
             |> DynObj.withOptionalPropertyBy             "orientation"      Orientation                          StyleParam.Orientation.convert
@@ -1044,6 +1145,7 @@ type Trace2DStyle() =
             |> DynObj.withOptionalProperty               "error_x"          XError                               
             |> DynObj.withOptionalProperty               "error_y"          YError                               
             |> DynObj.withOptionalProperty               "selectedpoints"   SelectedPoints                       
+            |> DynObj.withOptionalProperty               "selectedpoints"   SelectedPointsEncoded
             |> DynObj.withOptionalProperty               "selected"         Selected                             
             |> DynObj.withOptionalProperty               "unselected"       Unselected                           
             |> DynObj.withOptionalProperty               "cliponaxis"       ClipOnAxis                           
@@ -1071,17 +1173,21 @@ type Trace2DStyle() =
     /// <param name="LegendWidth">Sets the width (in px or fraction) of the legend for this trace.</param>
     /// <param name="Opacity">Sets the opacity of the trace.</param>
     /// <param name="Ids">Assigns id labels to each datum. These ids for object constancy of data points during animation. Should be an array of strings, not numbers or any other type.</param>
+    /// <param name="IdsEncoded">Assigns id labels as a base64-encoded typed array (plotly.js &gt;= 2.28.0). If provided, overrides <c>Ids</c>.</param>
     /// <param name="X">Sets the x sample data or coordinates. See overview for more info.</param>
     /// <param name="MultiX">Sets the x sample data or coordinates. See overview for more info.</param>
+    /// <param name="XEncoded">Sets the x coordinates as a base64-encoded typed array (plotly.js &gt;= 2.28.0). If provided, overrides <c>X</c>/<c>MultiX</c>.</param>
     /// <param name="X0">Sets the x coordinate for single-box traces or the starting coordinate for multi-box traces set using q1/median/q3. See overview for more info.</param>
     /// <param name="DX">Sets the x coordinate step for multi-box traces set using q1/median/q3.</param>
     /// <param name="Y">Sets the y sample data or coordinates. See overview for more info.</param>
     /// <param name="MultiY">Sets the y sample data or coordinates. See overview for more info.</param>
+    /// <param name="YEncoded">Sets the y coordinates as a base64-encoded typed array (plotly.js &gt;= 2.28.0). If provided, overrides <c>Y</c>/<c>MultiY</c>.</param>
     /// <param name="Y0">Sets the y coordinate for single-box traces or the starting coordinate for multi-box traces set using q1/median/q3. See overview for more info.</param>
     /// <param name="DY">Sets the y coordinate step for multi-box traces set using q1/median/q3.</param>
     /// <param name="Width">Sets the width of the box in data coordinate If "0" (default value) the width is automatically selected based on the positions of other box traces in the same subplot.</param>
     /// <param name="Text">Sets text elements associated with each (x,y) pair. If a single string, the same string appears over all the data points. If an array of string, the items are mapped in order to the this trace's (x,y) coordinates. If trace `hoverinfo` contains a "text" flag and "hovertext" is not set, these elements will be seen in the hover labels.</param>
     /// <param name="MultiText">Sets text elements associated with each (x,y) pair. If a single string, the same string appears over all the data points. If an array of string, the items are mapped in order to the this trace's (x,y) coordinates. If trace `hoverinfo` contains a "text" flag and "hovertext" is not set, these elements will be seen in the hover labels.</param>
+    /// <param name="MultiTextEncoded">Sets the per-point text array as a base64-encoded typed array (plotly.js &gt;= 2.28.0). If provided, overrides <c>Text</c>/<c>MultiText</c>.</param>
     /// <param name="HoverText">Sets hover text elements associated with each (x,y) pair. If a single string, the same string appears over all the data points. If an array of string, the items are mapped in order to the this trace's (x,y) coordinates. To be seen, trace `hoverinfo` must contain a "text" flag.</param>
     /// <param name="MultiHoverText">Sets hover text elements associated with each (x,y) pair. If a single string, the same string appears over all the data points. If an array of string, the items are mapped in order to the this trace's (x,y) coordinates. To be seen, trace `hoverinfo` must contain a "text" flag.</param>
     /// <param name="HoverInfo">Determines which trace information appear on hover. If `none` or `skip` are set, no information is displayed upon hovering. But, if `none` is set, click and hover events are still fired.</param>
@@ -1091,6 +1197,7 @@ type Trace2DStyle() =
     /// <param name="YHoverFormat">Sets the hover text formatting rulefor `y` using d3 formatting mini-languages which are very similar to those in Python. For numbers, see: https://github.com/d3/d3-format/tree/v1.4.5#d3-format. And for dates see: https://github.com/d3/d3-time-format/tree/v2.2.3#locale_format. We add two items to d3's date formatter: "%h" for half of the year as a decimal number as well as "%{n}f" for fractional seconds with n digits. For example, "2016-10-13 09:15:23.456" with tickformat "%H~%M~%S.%2f" would display "09~15~23.46"By default the values are formatted using `xaxis.hoverformat`.</param>
     /// <param name="Meta">Assigns extra meta information associated with this trace that can be used in various text attributes. Attributes such as trace `name`, graph, axis and colorbar `title.text`, annotation `text` `rangeselector`, `updatemenues` and `sliders` `label` text all support `meta`. To access the trace `meta` values in an attribute in the same trace, simply use `%{meta[i]}` where `i` is the index or key of the `meta` item in question. To access trace `meta` in layout attributes, use `%{data[n[.meta[i]}` where `i` is the index or key of the `meta` and `n` is the trace index.</param>
     /// <param name="CustomData">Assigns extra data each datum. This may be useful when listening to hover, click and selection events. Note that, "scatter" traces also appends customdata items in the markers DOM elements</param>
+    /// <param name="CustomDataEncoded">Assigns extra data for each datum as a base64-encoded typed array (plotly.js &gt;= 2.28.0). If provided, overrides <c>CustomData</c>.</param>
     /// <param name="XAxis">Sets a reference between this trace's x coordinates and a 2D cartesian x axis. If "x" (the default value), the x coordinates refer to `layout.xaxis`. If "x2", the x coordinates refer to `layout.xaxis2`, and so on.</param>
     /// <param name="YAxis">Sets a reference between this trace's y coordinates and a 2D cartesian y axis. If "y" (the default value), the y coordinates refer to `layout.yaxis`. If "y2", the y coordinates refer to `layout.yaxis2`, and so on.</param>
     /// <param name="Orientation">Sets the orientation of the box(es). If "v" ("h"), the distribution is visualized along the vertical (horizontal).</param>
@@ -1111,16 +1218,25 @@ type Trace2DStyle() =
     /// <param name="ShowWhiskers">Determines whether or not whiskers are visible. Defaults to true for `sizemode` "quartiles", false for "sd".</param>
     /// <param name="WhiskerWidth">Sets the width of the whiskers relative to the box' width. For example, with 1, the whiskers are as wide as the box(es).</param>
     /// <param name="Q1">Sets the Quartile 1 values. There should be as many items as the number of boxes desired.</param>
-    /// <param name="Median">Sets the Quartile 1 values. There should be as many items as the number of boxes desired.</param>
+    /// <param name="Q1Encoded">Sets the Quartile 1 values as a base64-encoded typed array (plotly.js &gt;= 2.28.0). If provided, overrides <c>Q1</c>.</param>
+    /// <param name="Median">Sets the median values. There should be as many items as the number of boxes desired.</param>
+    /// <param name="MedianEncoded">Sets the median values as a base64-encoded typed array (plotly.js &gt;= 2.28.0). If provided, overrides <c>Median</c>.</param>
     /// <param name="Q3">Sets the Quartile 3 values. There should be as many items as the number of boxes desired.</param>
+    /// <param name="Q3Encoded">Sets the Quartile 3 values as a base64-encoded typed array (plotly.js &gt;= 2.28.0). If provided, overrides <c>Q3</c>.</param>
     /// <param name="LowerFence">Sets the lower fence values. There should be as many items as the number of boxes desired. This attribute has effect only under the q1/median/q3 signature. If `lowerfence` is not provided but a sample (in `y` or `x`) is set, we compute the lower as the last sample point below 1.5 times the IQR.</param>
+    /// <param name="LowerFenceEncoded">Sets the lower fence values as a base64-encoded typed array (plotly.js &gt;= 2.28.0). If provided, overrides <c>LowerFence</c>.</param>
     /// <param name="UpperFence">Sets the upper fence values. There should be as many items as the number of boxes desired. This attribute has effect only under the q1/median/q3 signature. If `upperfence` is not provided but a sample (in `y` or `x`) is set, we compute the lower as the last sample point above 1.5 times the IQR.</param>
+    /// <param name="UpperFenceEncoded">Sets the upper fence values as a base64-encoded typed array (plotly.js &gt;= 2.28.0). If provided, overrides <c>UpperFence</c>.</param>
     /// <param name="NotchSpan">Sets the notch span from the boxes' `median` values. There should be as many items as the number of boxes desired. This attribute has effect only under the q1/median/q3 signature. If `notchspan` is not provided but a sample (in `y` or `x`) is set, we compute it as 1.57 " IQR / sqrt(N), where N is the sample size.</param>
+    /// <param name="NotchSpanEncoded">Sets the notch span values as a base64-encoded typed array (plotly.js &gt;= 2.28.0). If provided, overrides <c>NotchSpan</c>.</param>
     /// <param name="Mean">Sets the mean values. There should be as many items as the number of boxes desired. This attribute has effect only under the q1/median/q3 signature. If `mean` is not provided but a sample (in `y` or `x`) is set, we compute the mean for each box using the sample values.</param>
+    /// <param name="MeanEncoded">Sets the mean values as a base64-encoded typed array (plotly.js &gt;= 2.28.0). If provided, overrides <c>Mean</c>.</param>
     /// <param name="SD">Sets the standard deviation values. There should be as many items as the number of boxes desired. This attribute has effect only under the q1/median/q3 signature. If `sd` is not provided but a sample (in `y` or `x`) is set, we compute the standard deviation for each box using the sample values.</param>
+    /// <param name="SDEncoded">Sets the standard deviation values as a base64-encoded typed array (plotly.js &gt;= 2.28.0). If provided, overrides <c>SD</c>.</param>
     /// <param name="SDMultiple">Scales the box size when sizemode=sd Allowing boxes to be drawn across any stddev range For example 1-stddev, 3-stddev, 5-stddev</param>
     /// <param name="QuartileMethod">Sets the method used to compute the sample's Q1 and Q3 quartiles. The "linear" method uses the 25th percentile for Q1 and 75th percentile for Q3 as computed using method #10 (listed on http://www.amstat.org/publications/jse/v14n3/langford.html). The "exclusive" method uses the median to divide the ordered dataset into two halves if the sample is odd, it does not include the median in either half - Q1 is then the median of the lower half and Q3 the median of the upper half. The "inclusive" method also uses the median to divide the ordered dataset into two halves but if the sample is odd, it includes the median in both halves - Q1 is then the median of the lower half and Q3 the median of the upper half.</param>
     /// <param name="SelectedPoints">Array containing integer indices of selected points. Has an effect only for traces that support selections. Note that an empty array means an empty selection where the `unselected` are turned on for all points, whereas, any other non-array values means no selection all where the `selected` and `unselected` styles have no effect.</param>
+    /// <param name="SelectedPointsEncoded">Sets the selected-point indices as a base64-encoded typed array (plotly.js &gt;= 2.28.0). If provided, overrides <c>SelectedPoints</c>.</param>
     /// <param name="Selected">Sets the style of selected points of this trace.</param>
     /// <param name="Unselected">Sets the style of unselected points of this trace.</param>
     /// <param name="FillColor">Sets the fill color. Defaults to a half-transparent variant of the line color, marker color, or marker line color, whichever is available.</param>
@@ -1144,17 +1260,21 @@ type Trace2DStyle() =
             ?LegendWidth: float,
             ?Opacity: float,
             ?Ids: seq<#IConvertible>,
+            ?IdsEncoded: EncodedTypedArray,
             ?X: seq<#IConvertible>,
             ?MultiX: seq<seq<#IConvertible>>,
+            ?XEncoded: EncodedTypedArray,
             ?X0: #IConvertible,
             ?DX: #IConvertible,
             ?Y: seq<#IConvertible>,
             ?MultiY: seq<seq<#IConvertible>>,
+            ?YEncoded: EncodedTypedArray,
             ?Y0: #IConvertible,
             ?DY: #IConvertible,
             ?Width: float,
             ?Text: #IConvertible,
             ?MultiText: seq<#IConvertible>,
+            ?MultiTextEncoded: EncodedTypedArray,
             ?HoverText: string,
             ?MultiHoverText: seq<string>,
             ?HoverInfo: StyleParam.HoverInfo,
@@ -1164,6 +1284,7 @@ type Trace2DStyle() =
             ?YHoverFormat: string,
             ?Meta: string,
             ?CustomData: seq<#IConvertible>,
+            ?CustomDataEncoded: EncodedTypedArray,
             ?XAxis: StyleParam.LinearAxisId,
             ?YAxis: StyleParam.LinearAxisId,
             ?Orientation: StyleParam.Orientation,
@@ -1184,16 +1305,25 @@ type Trace2DStyle() =
             ?ShowWhiskers: bool,
             ?WhiskerWidth: float,
             ?Q1: seq<IConvertible>,
+            ?Q1Encoded: EncodedTypedArray,
             ?Median: seq<IConvertible>,
+            ?MedianEncoded: EncodedTypedArray,
             ?Q3: seq<IConvertible>,
+            ?Q3Encoded: EncodedTypedArray,
             ?LowerFence: seq<IConvertible>,
+            ?LowerFenceEncoded: EncodedTypedArray,
             ?UpperFence: seq<IConvertible>,
+            ?UpperFenceEncoded: EncodedTypedArray,
             ?NotchSpan: seq<IConvertible>,
+            ?NotchSpanEncoded: EncodedTypedArray,
             ?Mean: seq<IConvertible>,
+            ?MeanEncoded: EncodedTypedArray,
             ?SD: seq<IConvertible>,
+            ?SDEncoded: EncodedTypedArray,
             ?SDMultiple: float,
             ?QuartileMethod: StyleParam.QuartileMethod,
             ?SelectedPoints: seq<#IConvertible>,
+            ?SelectedPointsEncoded: EncodedTypedArray,
             ?Selected: TraceSelection,
             ?Unselected: TraceSelection,
             ?FillColor: Color,
@@ -1219,14 +1349,18 @@ type Trace2DStyle() =
             |> DynObj.withOptionalProperty              "legendwidth"      LegendWidth                         
             |> DynObj.withOptionalProperty              "opacity"          Opacity                             
             |> DynObj.withOptionalProperty              "ids"              Ids                                 
+            |> DynObj.withOptionalProperty              "ids"              IdsEncoded
             |> DynObj.withOptionalSingleOrMultiProperty "x"                (X, MultiX)                         
+            |> DynObj.withOptionalProperty              "x"                XEncoded
             |> DynObj.withOptionalProperty              "x0"               X0                                  
             |> DynObj.withOptionalProperty              "dx"               DX                                  
             |> DynObj.withOptionalSingleOrMultiProperty "y"                (Y, MultiY)                         
+            |> DynObj.withOptionalProperty              "y"                YEncoded
             |> DynObj.withOptionalProperty              "y0"               Y0                                  
             |> DynObj.withOptionalProperty              "dy"               DY                                  
             |> DynObj.withOptionalProperty              "width"            Width                               
             |> DynObj.withOptionalSingleOrMultiProperty "text"             (Text, MultiText)                   
+            |> DynObj.withOptionalProperty              "text"             MultiTextEncoded
             |> DynObj.withOptionalSingleOrMultiProperty "hovertext"        (HoverText, MultiHoverText)         
             |> DynObj.withOptionalPropertyBy            "hoverinfo"        HoverInfo                           StyleParam.HoverInfo.convert
             |> DynObj.withOptionalSingleOrMultiProperty "hovertemplate"    (HoverTemplate, MultiHoverTemplate) 
@@ -1234,6 +1368,7 @@ type Trace2DStyle() =
             |> DynObj.withOptionalProperty              "yhoverformat"     YHoverFormat                        
             |> DynObj.withOptionalProperty              "meta"             Meta                                
             |> DynObj.withOptionalProperty              "customdata"       CustomData                          
+            |> DynObj.withOptionalProperty              "customdata"       CustomDataEncoded
             |> DynObj.withOptionalPropertyBy            "xaxis"            XAxis                               StyleParam.LinearAxisId.convert
             |> DynObj.withOptionalPropertyBy            "yaxis"            YAxis                               StyleParam.LinearAxisId.convert
             |> DynObj.withOptionalPropertyBy            "orientation"      Orientation                         StyleParam.Orientation.convert
@@ -1254,16 +1389,25 @@ type Trace2DStyle() =
             |> DynObj.withOptionalProperty              "whiskerwidth"     WhiskerWidth                        
             |> DynObj.withOptionalProperty              "showwhiskers"     ShowWhiskers                        
             |> DynObj.withOptionalProperty              "q1"               Q1                                  
+            |> DynObj.withOptionalProperty              "q1"               Q1Encoded
             |> DynObj.withOptionalProperty              "median"           Median                              
+            |> DynObj.withOptionalProperty              "median"           MedianEncoded
             |> DynObj.withOptionalProperty              "q3"               Q3                                  
+            |> DynObj.withOptionalProperty              "q3"               Q3Encoded
             |> DynObj.withOptionalProperty              "lowerfence"       LowerFence                          
+            |> DynObj.withOptionalProperty              "lowerfence"       LowerFenceEncoded
             |> DynObj.withOptionalProperty              "upperfence"       UpperFence                          
+            |> DynObj.withOptionalProperty              "upperfence"       UpperFenceEncoded
             |> DynObj.withOptionalProperty              "notchspan"        NotchSpan                           
+            |> DynObj.withOptionalProperty              "notchspan"        NotchSpanEncoded
             |> DynObj.withOptionalProperty              "mean"             Mean                                
+            |> DynObj.withOptionalProperty              "mean"             MeanEncoded
             |> DynObj.withOptionalProperty              "sd"               SD                                  
+            |> DynObj.withOptionalProperty              "sd"               SDEncoded
             |> DynObj.withOptionalProperty              "sdmultiple"       SDMultiple                          
             |> DynObj.withOptionalPropertyBy            "quartilemethod"   QuartileMethod                      StyleParam.QuartileMethod.convert
             |> DynObj.withOptionalProperty              "selectedpoints"   SelectedPoints                      
+            |> DynObj.withOptionalProperty              "selectedpoints"   SelectedPointsEncoded
             |> DynObj.withOptionalProperty              "selected"         Selected                            
             |> DynObj.withOptionalProperty              "unselected"       Unselected                          
             |> DynObj.withOptionalProperty              "fillcolor"        FillColor                           
@@ -1289,17 +1433,21 @@ type Trace2DStyle() =
     /// <param name="LegendGroupTitle">Sets the legend group title for this trace.</param>
     /// <param name="Opacity">Sets the opacity of the trace.</param>
     /// <param name="Ids">Assigns id labels to each datum. These ids for object constancy of data points during animation. Should be an array of strings, not numbers or any other type.</param>
+    /// <param name="IdsEncoded">Assigns id labels as a base64-encoded typed array (plotly.js &gt;= 2.28.0). If provided, overrides <c>Ids</c>.</param>
     /// <param name="X">Sets the x sample data or coordinates. See overview for more info.</param>
     /// <param name="MultiX">Sets the x sample data or coordinates. See overview for more info.</param>
+    /// <param name="XEncoded">Sets the x coordinates as a base64-encoded typed array (plotly.js &gt;= 2.28.0). If provided, overrides <c>X</c>/<c>MultiX</c>.</param>
     /// <param name="X0">Sets the x coordinate for single-box traces or the starting coordinate for multi-box traces set using q1/median/q3. See overview for more info.</param>
     /// <param name="DX">Sets the x coordinate step for multi-box traces set using q1/median/q3.</param>
     /// <param name="Y">Sets the y sample data or coordinates. See overview for more info.</param>
     /// <param name="MultiY">Sets the y sample data or coordinates. See overview for more info.</param>
+    /// <param name="YEncoded">Sets the y coordinates as a base64-encoded typed array (plotly.js &gt;= 2.28.0). If provided, overrides <c>Y</c>/<c>MultiY</c>.</param>
     /// <param name="Y0">Sets the y coordinate for single-box traces or the starting coordinate for multi-box traces set using q1/median/q3. See overview for more info.</param>
     /// <param name="DY">Sets the y coordinate step for multi-box traces set using q1/median/q3.</param>
     /// <param name="Width">Sets the width of the violin in data coordinates. If "0" (default value) the width is automatically selected based on the positions of other violin traces in the same subplot.</param>
     /// <param name="Text">Sets text elements associated with each (x,y) pair. If a single string, the same string appears over all the data points. If an array of string, the items are mapped in order to the this trace's (x,y) coordinates. If trace `hoverinfo` contains a "text" flag and "hovertext" is not set, these elements will be seen in the hover labels.</param>
     /// <param name="MultiText">Sets text elements associated with each (x,y) pair. If a single string, the same string appears over all the data points. If an array of string, the items are mapped in order to the this trace's (x,y) coordinates. If trace `hoverinfo` contains a "text" flag and "hovertext" is not set, these elements will be seen in the hover labels.</param>
+    /// <param name="MultiTextEncoded">Sets the per-point text array as a base64-encoded typed array (plotly.js &gt;= 2.28.0). If provided, overrides <c>Text</c>/<c>MultiText</c>.</param>
     /// <param name="HoverText">Sets hover text elements associated with each (x,y) pair. If a single string, the same string appears over all the data points. If an array of string, the items are mapped in order to the this trace's (x,y) coordinates. To be seen, trace `hoverinfo` must contain a "text" flag.</param>
     /// <param name="MultiHoverText">Sets hover text elements associated with each (x,y) pair. If a single string, the same string appears over all the data points. If an array of string, the items are mapped in order to the this trace's (x,y) coordinates. To be seen, trace `hoverinfo` must contain a "text" flag.</param>
     /// <param name="HoverInfo">Determines which trace information appear on hover. If `none` or `skip` are set, no information is displayed upon hovering. But, if `none` is set, click and hover events are still fired.</param>
@@ -1309,6 +1457,7 @@ type Trace2DStyle() =
     /// <param name="YHoverFormat">Sets the hover text formatting rulefor `y` using d3 formatting mini-languages which are very similar to those in Python. For numbers, see: https://github.com/d3/d3-format/tree/v1.4.5#d3-format. And for dates see: https://github.com/d3/d3-time-format/tree/v2.2.3#locale_format. We add two items to d3's date formatter: "%h" for half of the year as a decimal number as well as "%{n}f" for fractional seconds with n digits. For example, "2016-10-13 09:15:23.456" with tickformat "%H~%M~%S.%2f" would display "09~15~23.46"By default the values are formatted using `xaxis.hoverformat`.</param>
     /// <param name="Meta">Assigns extra meta information associated with this trace that can be used in various text attributes. Attributes such as trace `name`, graph, axis and colorbar `title.text`, annotation `text` `rangeselector`, `updatemenues` and `sliders` `label` text all support `meta`. To access the trace `meta` values in an attribute in the same trace, simply use `%{meta[i]}` where `i` is the index or key of the `meta` item in question. To access trace `meta` in layout attributes, use `%{data[n[.meta[i]}` where `i` is the index or key of the `meta` and `n` is the trace index.</param>
     /// <param name="CustomData">Assigns extra data each datum. This may be useful when listening to hover, click and selection events. Note that, "scatter" traces also appends customdata items in the markers DOM elements</param>
+    /// <param name="CustomDataEncoded">Assigns extra data for each datum as a base64-encoded typed array (plotly.js &gt;= 2.28.0). If provided, overrides <c>CustomData</c>.</param>
     /// <param name="XAxis">Sets a reference between this trace's x coordinates and a 2D cartesian x axis. If "x" (the default value), the x coordinates refer to `layout.xaxis`. If "x2", the x coordinates refer to `layout.xaxis2`, and so on.</param>
     /// <param name="YAxis">Sets a reference between this trace's y coordinates and a 2D cartesian y axis. If "y" (the default value), the y coordinates refer to `layout.yaxis`. If "y2", the y coordinates refer to `layout.yaxis2`, and so on.</param>
     /// <param name="Orientation">Sets the orientation of the violin(s). If "v" ("h"), the distribution is visualized along the vertical (horizontal).</param>
@@ -1318,6 +1467,7 @@ type Trace2DStyle() =
     /// <param name="Line">Sets the line of this trace.</param>
     /// <param name="Box">Whether and how to draw a miniature box plot</param>
     /// <param name="SelectedPoints">Array containing integer indices of selected points. Has an effect only for traces that support selections. Note that an empty array means an empty selection where the `unselected` are turned on for all points, whereas, any other non-array values means no selection all where the `selected` and `unselected` styles have no effect.</param>
+    /// <param name="SelectedPointsEncoded">Sets the selected-point indices as a base64-encoded typed array (plotly.js &gt;= 2.28.0). If provided, overrides <c>SelectedPoints</c>.</param>
     /// <param name="Selected">Sets the style of selected points of this trace.</param>
     /// <param name="Unselected">Sets the style of unselected points of this trace.</param>
     /// <param name="BandWidth">Sets the bandwidth used to compute the kernel density estimate. By default, the bandwidth is determined by Silverman's rule of thumb.</param>
@@ -1345,17 +1495,21 @@ type Trace2DStyle() =
             ?LegendGroupTitle: Title,
             ?Opacity: float,
             ?Ids: seq<#IConvertible>,
+            ?IdsEncoded: EncodedTypedArray,
             ?X: seq<#IConvertible>,
             ?MultiX: seq<seq<#IConvertible>>,
+            ?XEncoded: EncodedTypedArray,
             ?X0: #IConvertible,
             ?DX: #IConvertible,
             ?Y: seq<#IConvertible>,
             ?MultiY: seq<seq<#IConvertible>>,
+            ?YEncoded: EncodedTypedArray,
             ?Y0: #IConvertible,
             ?DY: #IConvertible,
             ?Width: float,
             ?Text: #IConvertible,
             ?MultiText: seq<#IConvertible>,
+            ?MultiTextEncoded: EncodedTypedArray,
             ?HoverText: string,
             ?MultiHoverText: seq<string>,
             ?HoverInfo: StyleParam.HoverInfo,
@@ -1365,6 +1519,7 @@ type Trace2DStyle() =
             ?YHoverFormat: string,
             ?Meta: string,
             ?CustomData: seq<#IConvertible>,
+            ?CustomDataEncoded: EncodedTypedArray,
             ?XAxis: StyleParam.LinearAxisId,
             ?YAxis: StyleParam.LinearAxisId,
             ?Orientation: StyleParam.Orientation,
@@ -1374,6 +1529,7 @@ type Trace2DStyle() =
             ?Line: Line,
             ?Box: Box,
             ?SelectedPoints: seq<#IConvertible>,
+            ?SelectedPointsEncoded: EncodedTypedArray,
             ?Selected: TraceSelection,
             ?Unselected: TraceSelection,
             ?BandWidth: float,
@@ -1403,14 +1559,18 @@ type Trace2DStyle() =
             |> DynObj.withOptionalProperty              "legendgrouptitle"  LegendGroupTitle                   
             |> DynObj.withOptionalProperty              "opacity"           Opacity                            
             |> DynObj.withOptionalProperty              "ids"               Ids                                
+            |> DynObj.withOptionalProperty              "ids"               IdsEncoded
             |> DynObj.withOptionalSingleOrMultiProperty "x"                 (X, MultiX)                        
+            |> DynObj.withOptionalProperty              "x"                 XEncoded
             |> DynObj.withOptionalProperty              "x0"                X0                                 
             |> DynObj.withOptionalProperty              "dx"                DX                                 
             |> DynObj.withOptionalSingleOrMultiProperty "y"                 (Y, MultiY)                        
+            |> DynObj.withOptionalProperty              "y"                 YEncoded
             |> DynObj.withOptionalProperty              "y0"                Y0                                 
             |> DynObj.withOptionalProperty              "dy"                DY                                 
             |> DynObj.withOptionalProperty              "width"             Width                              
             |> DynObj.withOptionalSingleOrMultiProperty "text"              (Text, MultiText)                  
+            |> DynObj.withOptionalProperty              "text"              MultiTextEncoded
             |> DynObj.withOptionalSingleOrMultiProperty "hovertext"         (HoverText, MultiHoverText)        
             |> DynObj.withOptionalPropertyBy            "hoverinfo"         HoverInfo                           StyleParam.HoverInfo.convert
             |> DynObj.withOptionalSingleOrMultiProperty "hovertemplate"     (HoverTemplate, MultiHoverTemplate)
@@ -1418,6 +1578,7 @@ type Trace2DStyle() =
             |> DynObj.withOptionalProperty              "yhoverformat"      YHoverFormat                       
             |> DynObj.withOptionalProperty              "meta"              Meta                               
             |> DynObj.withOptionalProperty              "customdata"        CustomData                         
+            |> DynObj.withOptionalProperty              "customdata"        CustomDataEncoded
             |> DynObj.withOptionalPropertyBy            "xaxis"             XAxis                               StyleParam.LinearAxisId.convert
             |> DynObj.withOptionalPropertyBy            "yaxis"             YAxis                               StyleParam.LinearAxisId.convert
             |> DynObj.withOptionalPropertyBy            "orientation"       Orientation                         StyleParam.Orientation.convert
@@ -1427,6 +1588,7 @@ type Trace2DStyle() =
             |> DynObj.withOptionalProperty              "line"              Line                               
             |> DynObj.withOptionalProperty              "box"               Box                                
             |> DynObj.withOptionalProperty              "selectedpoints"    SelectedPoints                     
+            |> DynObj.withOptionalProperty              "selectedpoints"    SelectedPointsEncoded
             |> DynObj.withOptionalProperty              "selected"          Selected                           
             |> DynObj.withOptionalProperty              "unselected"        Unselected                         
             |> DynObj.withOptionalProperty              "bandwidth"         BandWidth                          
@@ -1456,13 +1618,17 @@ type Trace2DStyle() =
     /// <param name="LegendGroupTitle">Sets the legend group title for this trace.</param>
     /// <param name="Opacity">Sets the opacity of the trace.</param>
     /// <param name="Ids">Assigns id labels to each datum. These ids for object constancy of data points during animation. Should be an array of strings, not numbers or any other type.</param>
+    /// <param name="IdsEncoded">Assigns id labels to each datum as a base64 encoded typed array object.</param>
     /// <param name="X">Sets the sample data to be binned on the x axis.</param>
     /// <param name="MultiX">Sets the sample data to be binned on the x axis.</param>
+    /// <param name="XEncoded">Sets the sample data to be binned on the x axis as a base64 encoded typed array object.</param>
     /// <param name="XGap">Sets the horizontal gap (in pixels) between bricks.</param>
     /// <param name="Y">Sets the sample data to be binned on the y axis.</param>
     /// <param name="MultiY">Sets the sample data to be binned on the y axis.</param>
+    /// <param name="YEncoded">Sets the sample data to be binned on the y axis as a base64 encoded typed array object.</param>
     /// <param name="YGap">Sets the vertical gap (in pixels) between bricks.</param>
     /// <param name="Z">Sets the aggregation data.</param>
+    /// <param name="ZEncoded">Sets the aggregation data as a flattened base64 encoded typed array object. Use `shape` to declare the matrix dimensions.</param>
     /// <param name="TextTemplate">Template string used for rendering the information text that appear on points. Note that this will override `textinfo`. Variables are inserted using %{variable}, for example "y: %{y}". Numbers are formatted using d3-format's syntax %{variable:d3-format}, for example "Price: %{y:$.2f}". https://github.com/d3/d3-format/tree/v1.4.5#d3-format for details on the formatting syntax. Dates are formatted using d3-time-format's syntax %{variable|d3-time-format}, for example "Day: %{2019-01-01|%A}". https://github.com/d3/d3-time-format/tree/v2.2.3#locale_format for details on the date formatting syntax. Every attributes that can be specified per-point (the ones that are `arrayOk: true`) are available.</param>
     /// <param name="HoverInfo">Determines which trace information appear on hover. If `none` or `skip` are set, no information is displayed upon hovering. But, if `none` is set, click and hover events are still fired.</param>
     /// <param name="HoverTemplate">Template string used for rendering the information that appear on hover box. Note that this will override `hoverinfo`. Variables are inserted using %{variable}, for example "y: %{y}" as well as %{xother}, {%_xother}, {%_xother_}, {%xother_}. When showing info for several points, "xother" will be added to those with different x positions from the first point. An underscore before or after "(x|y)other" will add a space on that side, only when this field is shown. Numbers are formatted using d3-format's syntax %{variable:d3-format}, for example "Price: %{y:$.2f}". https://github.com/d3/d3-format/tree/v1.4.5#d3-format for details on the formatting syntax. Dates are formatted using d3-time-format's syntax %{variable|d3-time-format}, for example "Day: %{2019-01-01|%A}". https://github.com/d3/d3-time-format/tree/v2.2.3#locale_format for details on the date formatting syntax. The variables available in `hovertemplate` are the ones emitted as event data described at this link https://plotly.com/javascript/plotlyjs-events/#event-data. Additionally, every attributes that can be specified per-point (the ones that are `arrayOk: true`) are available. variable `norm` Anything contained in tag `&lt;extra&gt;` is displayed in the secondary box, for example "&lt;extra&gt;{fullData.name}&lt;/extra&gt;". To hide the secondary box completely, use an empty tag `&lt;extra&gt;&lt;/extra&gt;`.</param>
@@ -1471,6 +1637,7 @@ type Trace2DStyle() =
     /// <param name="YHoverFormat">Sets the hover text formatting rulefor `y` using d3 formatting mini-languages which are very similar to those in Python. For numbers, see: https://github.com/d3/d3-format/tree/v1.4.5#d3-format. And for dates see: https://github.com/d3/d3-time-format/tree/v2.2.3#locale_format. We add two items to d3's date formatter: "%h" for half of the year as a decimal number as well as "%{n}f" for fractional seconds with n digits. For example, "2016-10-13 09:15:23.456" with tickformat "%H~%M~%S.%2f" would display "09~15~23.46"By default the values are formatted using `xaxis.hoverformat`.</param>
     /// <param name="Meta">Assigns extra meta information associated with this trace that can be used in various text attributes. Attributes such as trace `name`, graph, axis and colorbar `title.text`, annotation `text` `rangeselector`, `updatemenues` and `sliders` `label` text all support `meta`. To access the trace `meta` values in an attribute in the same trace, simply use `%{meta[i]}` where `i` is the index or key of the `meta` item in question. To access trace `meta` in layout attributes, use `%{data[n[.meta[i]}` where `i` is the index or key of the `meta` and `n` is the trace index.</param>
     /// <param name="CustomData">Assigns extra data each datum. This may be useful when listening to hover, click and selection events. Note that, "scatter" traces also appends customdata items in the markers DOM elements</param>
+    /// <param name="CustomDataEncoded">Assigns extra data each datum as a base64 encoded typed array object.</param>
     /// <param name="XAxis">Sets a reference between this trace's x coordinates and a 2D cartesian x axis. If "x" (the default value), the x coordinates refer to `layout.xaxis`. If "x2", the x coordinates refer to `layout.xaxis2`, and so on.</param>
     /// <param name="YAxis">Sets a reference between this trace's y coordinates and a 2D cartesian y axis. If "y" (the default value), the y coordinates refer to `layout.yaxis`. If "y2", the y coordinates refer to `layout.yaxis2`, and so on.</param>
     /// <param name="ColorAxis">Sets a reference to a shared color axis. References to these shared color axes are "coloraxis", "coloraxis2", "coloraxis3", etc. Settings for these shared color axes are set in the layout, under `layout.coloraxis`, `layout.coloraxis2`, etc. Note that multiple color scales can be linked to the same color axis.</param>
@@ -1513,13 +1680,17 @@ type Trace2DStyle() =
             ?LegendGroupTitle: Title,
             ?Opacity: float,
             ?Ids: seq<#IConvertible>,
+            ?IdsEncoded: EncodedTypedArray,
             ?X: seq<#IConvertible>,
             ?MultiX: seq<seq<#IConvertible>>,
+            ?XEncoded: EncodedTypedArray,
             ?XGap: int,
             ?Y: seq<#IConvertible>,
             ?MultiY: seq<seq<#IConvertible>>,
+            ?YEncoded: EncodedTypedArray,
             ?YGap: int,
             ?Z: seq<#seq<#IConvertible>>,
+            ?ZEncoded: EncodedTypedArray,
             ?TextTemplate: string,
             ?HoverInfo: StyleParam.HoverInfo,
             ?HoverTemplate: string,
@@ -1528,6 +1699,7 @@ type Trace2DStyle() =
             ?YHoverFormat: string,
             ?Meta: string,
             ?CustomData: seq<#IConvertible>,
+            ?CustomDataEncoded: EncodedTypedArray,
             ?XAxis: StyleParam.LinearAxisId,
             ?YAxis: StyleParam.LinearAxisId,
             ?ColorAxis: StyleParam.SubPlotId,
@@ -1572,11 +1744,15 @@ type Trace2DStyle() =
             |> DynObj.withOptionalProperty               "legendgrouptitle" LegendGroupTitle                    
             |> DynObj.withOptionalProperty               "opacity"          Opacity                             
             |> DynObj.withOptionalProperty               "ids"              Ids                                 
+            |> DynObj.withOptionalProperty               "ids"              IdsEncoded                          
             |> DynObj.withOptionalSingleOrMultiProperty  "x"                (X, MultiX)                         
+            |> DynObj.withOptionalProperty               "x"                XEncoded                            
             |> DynObj.withOptionalProperty               "xgap"             XGap                                
             |> DynObj.withOptionalSingleOrMultiProperty  "y"                (Y, MultiY)                         
+            |> DynObj.withOptionalProperty               "y"                YEncoded                            
             |> DynObj.withOptionalProperty               "ygap"             YGap                                
             |> DynObj.withOptionalProperty               "z"                Z                                   
+            |> DynObj.withOptionalProperty               "z"                ZEncoded                            
             |> DynObj.withOptionalProperty               "texttemplate"     TextTemplate                        
             |> DynObj.withOptionalPropertyBy             "hoverinfo"        HoverInfo                            StyleParam.HoverInfo.convert
             |> DynObj.withOptionalSingleOrMultiProperty  "hovertemplate"    (HoverTemplate, MultiHoverTemplate) 
@@ -1584,6 +1760,7 @@ type Trace2DStyle() =
             |> DynObj.withOptionalProperty               "yhoverformat"     YHoverFormat                        
             |> DynObj.withOptionalProperty               "meta"             Meta                                
             |> DynObj.withOptionalProperty               "customdata"       CustomData                          
+            |> DynObj.withOptionalProperty               "customdata"       CustomDataEncoded                   
             |> DynObj.withOptionalPropertyBy             "xaxis"            XAxis                                StyleParam.LinearAxisId.convert
             |> DynObj.withOptionalPropertyBy             "yaxis"            YAxis                                StyleParam.LinearAxisId.convert
             |> DynObj.withOptionalProperty               "coloraxis"        ColorAxis                           
@@ -1628,11 +1805,15 @@ type Trace2DStyle() =
     /// <param name="LegendGroupTitle">Sets the legend group title for this trace.</param>
     /// <param name="Opacity">Sets the opacity of the trace.</param>
     /// <param name="Ids">Assigns id labels to each datum. These ids for object constancy of data points during animation. Should be an array of strings, not numbers or any other type.</param>
+    /// <param name="IdsEncoded">Assigns id labels to each datum as a base64 encoded typed array object.</param>
     /// <param name="X">Sets the sample data to be binned on the x axis.</param>
     /// <param name="MultiX">Sets the sample data to be binned on the x axis.</param>
+    /// <param name="XEncoded">Sets the sample data to be binned on the x axis as a base64 encoded typed array object.</param>
     /// <param name="Y">Sets the sample data to be binned on the y axis.</param>
     /// <param name="MultiY">Sets the sample data to be binned on the y axis.</param>
+    /// <param name="YEncoded">Sets the sample data to be binned on the y axis as a base64 encoded typed array object.</param>
     /// <param name="Z">Sets the aggregation data.</param>
+    /// <param name="ZEncoded">Sets the aggregation data as a flattened base64 encoded typed array object. Use `shape` to declare the matrix dimensions.</param>
     /// <param name="TextTemplate">For this trace it only has an effect if `coloring` is set to "heatmap". Template string used for rendering the information text that appear on points. Note that this will override `textinfo`. Variables are inserted using %{variable}, for example "y: %{y}". Numbers are formatted using d3-format's syntax %{variable:d3-format}, for example "Price: %{y:$.2f}". https://github.com/d3/d3-format/tree/v1.4.5#d3-format for details on the formatting syntax. Dates are formatted using d3-time-format's syntax %{variable|d3-time-format}, for example "Day: %{2019-01-01|%A}". https://github.com/d3/d3-time-format/tree/v2.2.3#locale_format for details on the date formatting syntax. Every attributes that can be specified per-point (the ones that are `arrayOk: true`) are available.</param>
     /// <param name="HoverInfo">Determines which trace information appear on hover. If `none` or `skip` are set, no information is displayed upon hovering. But, if `none` is set, click and hover events are still fired.</param>
     /// <param name="HoverTemplate">Template string used for rendering the information that appear on hover box. Note that this will override `hoverinfo`. Variables are inserted using %{variable}, for example "y: %{y}" as well as %{xother}, {%_xother}, {%_xother_}, {%xother_}. When showing info for several points, "xother" will be added to those with different x positions from the first point. An underscore before or after "(x|y)other" will add a space on that side, only when this field is shown. Numbers are formatted using d3-format's syntax %{variable:d3-format}, for example "Price: %{y:$.2f}". https://github.com/d3/d3-format/tree/v1.4.5#d3-format for details on the formatting syntax. Dates are formatted using d3-time-format's syntax %{variable|d3-time-format}, for example "Day: %{2019-01-01|%A}". https://github.com/d3/d3-time-format/tree/v2.2.3#locale_format for details on the date formatting syntax. The variables available in `hovertemplate` are the ones emitted as event data described at this link https://plotly.com/javascript/plotlyjs-events/#event-data. Additionally, every attributes that can be specified per-point (the ones that are `arrayOk: true`) are available. variable `norm` Anything contained in tag `&lt;extra&gt;` is displayed in the secondary box, for example "&lt;extra&gt;{fullData.name}&lt;/extra&gt;". To hide the secondary box completely, use an empty tag `&lt;extra&gt;&lt;/extra&gt;`.</param>
@@ -1641,6 +1822,7 @@ type Trace2DStyle() =
     /// <param name="YHoverFormat">Sets the hover text formatting rulefor `y` using d3 formatting mini-languages which are very similar to those in Python. For numbers, see: https://github.com/d3/d3-format/tree/v1.4.5#d3-format. And for dates see: https://github.com/d3/d3-time-format/tree/v2.2.3#locale_format. We add two items to d3's date formatter: "%h" for half of the year as a decimal number as well as "%{n}f" for fractional seconds with n digits. For example, "2016-10-13 09:15:23.456" with tickformat "%H~%M~%S.%2f" would display "09~15~23.46"By default the values are formatted using `xaxis.hoverformat`.</param>
     /// <param name="Meta">Assigns extra meta information associated with this trace that can be used in various text attributes. Attributes such as trace `name`, graph, axis and colorbar `title.text`, annotation `text` `rangeselector`, `updatemenues` and `sliders` `label` text all support `meta`. To access the trace `meta` values in an attribute in the same trace, simply use `%{meta[i]}` where `i` is the index or key of the `meta` item in question. To access trace `meta` in layout attributes, use `%{data[n[.meta[i]}` where `i` is the index or key of the `meta` and `n` is the trace index.</param>
     /// <param name="CustomData">Assigns extra data each datum. This may be useful when listening to hover, click and selection events. Note that, "scatter" traces also appends customdata items in the markers DOM elements</param>
+    /// <param name="CustomDataEncoded">Assigns extra data each datum as a base64 encoded typed array object.</param>
     /// <param name="XAxis">Sets a reference between this trace's x coordinates and a 2D cartesian x axis. If "x" (the default value), the x coordinates refer to `layout.xaxis`. If "x2", the x coordinates refer to `layout.xaxis2`, and so on.</param>
     /// <param name="YAxis">Sets a reference between this trace's y coordinates and a 2D cartesian y axis. If "y" (the default value), the y coordinates refer to `layout.yaxis`. If "y2", the y coordinates refer to `layout.yaxis2`, and so on.</param>
     /// <param name="ColorAxis">Sets a reference to a shared color axis. References to these shared color axes are "coloraxis", "coloraxis2", "coloraxis3", etc. Settings for these shared color axes are set in the layout, under `layout.coloraxis`, `layout.coloraxis2`, etc. Note that multiple color scales can be linked to the same color axis.</param>
@@ -1686,11 +1868,15 @@ type Trace2DStyle() =
             ?LegendGroupTitle: Title,
             ?Opacity: float,
             ?Ids: seq<#IConvertible>,
+            ?IdsEncoded: EncodedTypedArray,
             ?X: seq<#IConvertible>,
             ?MultiX: seq<seq<#IConvertible>>,
+            ?XEncoded: EncodedTypedArray,
             ?Y: seq<#IConvertible>,
             ?MultiY: seq<seq<#IConvertible>>,
+            ?YEncoded: EncodedTypedArray,
             ?Z: seq<#seq<#IConvertible>>,
+            ?ZEncoded: EncodedTypedArray,
             ?TextTemplate: string,
             ?HoverInfo: StyleParam.HoverInfo,
             ?HoverTemplate: string,
@@ -1699,6 +1885,7 @@ type Trace2DStyle() =
             ?YHoverFormat: string,
             ?Meta: string,
             ?CustomData: seq<#IConvertible>,
+            ?CustomDataEncoded: EncodedTypedArray,
             ?XAxis: StyleParam.LinearAxisId,
             ?YAxis: StyleParam.LinearAxisId,
             ?ColorAxis: StyleParam.SubPlotId,
@@ -1746,9 +1933,13 @@ type Trace2DStyle() =
             |> DynObj.withOptionalProperty               "legendgrouptitle"  LegendGroupTitle                    
             |> DynObj.withOptionalProperty               "opacity"           Opacity                             
             |> DynObj.withOptionalProperty               "ids"               Ids                                 
+            |> DynObj.withOptionalProperty               "ids"               IdsEncoded                          
             |> DynObj.withOptionalSingleOrMultiProperty  "x"                 (X, MultiX)                         
+            |> DynObj.withOptionalProperty               "x"                 XEncoded                            
             |> DynObj.withOptionalSingleOrMultiProperty  "y"                 (Y, MultiY)                         
+            |> DynObj.withOptionalProperty               "y"                 YEncoded                            
             |> DynObj.withOptionalProperty               "z"                 Z                                   
+            |> DynObj.withOptionalProperty               "z"                 ZEncoded                            
             |> DynObj.withOptionalProperty               "texttemplate"      TextTemplate                        
             |> DynObj.withOptionalPropertyBy             "hoverinfo"         HoverInfo                            StyleParam.HoverInfo.convert
             |> DynObj.withOptionalSingleOrMultiProperty  "hovertemplate"     (HoverTemplate, MultiHoverTemplate) 
@@ -1756,6 +1947,7 @@ type Trace2DStyle() =
             |> DynObj.withOptionalProperty               "yhoverformat"      YHoverFormat                        
             |> DynObj.withOptionalProperty               "meta"              Meta                                
             |> DynObj.withOptionalProperty               "customdata"        CustomData                          
+            |> DynObj.withOptionalProperty               "customdata"        CustomDataEncoded                   
             |> DynObj.withOptionalPropertyBy             "xaxis"             XAxis                                StyleParam.LinearAxisId.convert
             |> DynObj.withOptionalPropertyBy             "yaxis"             YAxis                                StyleParam.LinearAxisId.convert
             |> DynObj.withOptionalProperty               "coloraxis"         ColorAxis                           
@@ -1804,21 +1996,26 @@ type Trace2DStyle() =
     /// <param name="LegendGroupTitle">Sets the legend group title for this trace.</param>
     /// <param name="Opacity">Sets the opacity of the trace.</param>
     /// <param name="Ids">Assigns id labels to each datum. These ids for object constancy of data points during animation. Should be an array of strings, not numbers or any other type.</param>
+    /// <param name="IdsEncoded">Assigns id labels to each datum as a base64 encoded typed array object.</param>
     /// <param name="X">Sets the x coordinates.</param>
     /// <param name="MultiX">Sets the x coordinates.</param>
+    /// <param name="XEncoded">Sets the x coordinates as a base64 encoded typed array object.</param>
     /// <param name="X0">Alternate to `x`. Builds a linear space of x coordinates. Use with `dx` where `x0` is the starting coordinate and `dx` the step.</param>
     /// <param name="DX">Sets the x coordinate step. See `x0` for more info.</param>
     /// <param name="XType">If "array", the heatmap's x coordinates are given by "x" (the default behavior when `x` is provided). If "scaled", the heatmap's x coordinates are given by "x0" and "dx" (the default behavior when `x` is not provided).</param>
     /// <param name="XGap">Sets the horizontal gap (in pixels) between bricks.</param>
     /// <param name="Y">Sets the y coordinates.</param>
     /// <param name="MultiY">Sets the y coordinates.</param>
+    /// <param name="YEncoded">Sets the y coordinates as a base64 encoded typed array object.</param>
     /// <param name="Y0">Alternate to `y`. Builds a linear space of y coordinates. Use with `dy` where `y0` is the starting coordinate and `dy` the step.</param>
     /// <param name="DY">Sets the y coordinate step. See `y0` for more info.</param>
     /// <param name="YType">If "array", the heatmap's y coordinates are given by "y" (the default behavior when `y` is provided) If "scaled", the heatmap's y coordinates are given by "y0" and "dy" (the default behavior when `y` is not provided)</param>
     /// <param name="YGap">Sets the vertical gap (in pixels) between bricks.</param>
     /// <param name="Z">Sets the z data.</param>
+    /// <param name="ZEncoded">Sets the z data as a flattened base64 encoded typed array object. Use `shape` to declare the matrix dimensions.</param>
     /// <param name="Text">Sets the text elements associated with each z value.</param>
     /// <param name="MultiText">Sets the text elements associated with each z value.</param>
+    /// <param name="MultiTextEncoded">Sets the text elements associated with each z value as a base64 encoded typed array object.</param>
     /// <param name="TextTemplate">Template string used for rendering the information text that appear on points. Note that this will override `textinfo`. Variables are inserted using %{variable}, for example "y: %{y}". Numbers are formatted using d3-format's syntax %{variable:d3-format}, for example "Price: %{y:$.2f}". https://github.com/d3/d3-format/tree/v1.4.5#d3-format for details on the formatting syntax. Dates are formatted using d3-time-format's syntax %{variable|d3-time-format}, for example "Day: %{2019-01-01|%A}". https://github.com/d3/d3-time-format/tree/v2.2.3#locale_format for details on the date formatting syntax. Every attributes that can be specified per-point (the ones that are `arrayOk: true`) are available.</param>
     /// <param name="HoverText">Sets hover text elements associated with each (x,y) pair. If a single string, the same string appears over all the data points. If an array of string, the items are mapped in order to the this trace's (x,y) coordinates. To be seen, trace `hoverinfo` must contain a "text" flag.</param>
     /// <param name="MultiHoverText">Sets hover text elements associated with each (x,y) pair. If a single string, the same string appears over all the data points. If an array of string, the items are mapped in order to the this trace's (x,y) coordinates. To be seen, trace `hoverinfo` must contain a "text" flag.</param>
@@ -1829,6 +2026,7 @@ type Trace2DStyle() =
     /// <param name="YHoverFormat">Sets the hover text formatting rulefor `y` using d3 formatting mini-languages which are very similar to those in Python. For numbers, see: https://github.com/d3/d3-format/tree/v1.4.5#d3-format. And for dates see: https://github.com/d3/d3-time-format/tree/v2.2.3#locale_format. We add two items to d3's date formatter: "%h" for half of the year as a decimal number as well as "%{n}f" for fractional seconds with n digits. For example, "2016-10-13 09:15:23.456" with tickformat "%H~%M~%S.%2f" would display "09~15~23.46"By default the values are formatted using `xaxis.hoverformat`.</param>
     /// <param name="Meta">Assigns extra meta information associated with this trace that can be used in various text attributes. Attributes such as trace `name`, graph, axis and colorbar `title.text`, annotation `text` `rangeselector`, `updatemenues` and `sliders` `label` text all support `meta`. To access the trace `meta` values in an attribute in the same trace, simply use `%{meta[i]}` where `i` is the index or key of the `meta` item in question. To access trace `meta` in layout attributes, use `%{data[n[.meta[i]}` where `i` is the index or key of the `meta` and `n` is the trace index.</param>
     /// <param name="CustomData">Assigns extra data each datum. This may be useful when listening to hover, click and selection events. Note that, "scatter" traces also appends customdata items in the markers DOM elements</param>
+    /// <param name="CustomDataEncoded">Assigns extra data each datum as a base64 encoded typed array object.</param>
     /// <param name="XAxis">Sets a reference between this trace's x coordinates and a 2D cartesian x axis. If "x" (the default value), the x coordinates refer to `layout.xaxis`. If "x2", the x coordinates refer to `layout.xaxis2`, and so on.</param>
     /// <param name="YAxis">Sets a reference between this trace's y coordinates and a 2D cartesian y axis. If "y" (the default value), the y coordinates refer to `layout.yaxis`. If "y2", the y coordinates refer to `layout.yaxis2`, and so on.</param>
     /// <param name="ColorAxis">Sets a reference to a shared color axis. References to these shared color axes are "coloraxis", "coloraxis2", "coloraxis3", etc. Settings for these shared color axes are set in the layout, under `layout.coloraxis`, `layout.coloraxis2`, etc. Note that multiple color scales can be linked to the same color axis.</param>
@@ -1868,21 +2066,26 @@ type Trace2DStyle() =
             ?LegendGroupTitle: Title,
             ?Opacity: float,
             ?Ids: seq<#IConvertible>,
+            ?IdsEncoded: EncodedTypedArray,
             ?X: seq<#IConvertible>,
             ?MultiX: seq<seq<#IConvertible>>,
+            ?XEncoded: EncodedTypedArray,
             ?X0: #IConvertible,
             ?DX: #IConvertible,
             ?XType: StyleParam.CoordinateType,
             ?XGap: int,
             ?Y: seq<#IConvertible>,
             ?MultiY: seq<seq<#IConvertible>>,
+            ?YEncoded: EncodedTypedArray,
             ?Y0: #IConvertible,
             ?DY: #IConvertible,
             ?YType: StyleParam.CoordinateType,
             ?YGap: int,
             ?Z: seq<#seq<#IConvertible>>,
+            ?ZEncoded: EncodedTypedArray,
             ?Text: #IConvertible,
             ?MultiText: seq<#IConvertible>,
+            ?MultiTextEncoded: EncodedTypedArray,
             ?TextTemplate: string,
             ?HoverText: string,
             ?MultiHoverText: seq<string>,
@@ -1893,6 +2096,7 @@ type Trace2DStyle() =
             ?YHoverFormat: string,
             ?Meta: string,
             ?CustomData: seq<#IConvertible>,
+            ?CustomDataEncoded: EncodedTypedArray,
             ?XAxis: StyleParam.LinearAxisId,
             ?YAxis: StyleParam.LinearAxisId,
             ?ColorAxis: StyleParam.SubPlotId,
@@ -1934,18 +2138,23 @@ type Trace2DStyle() =
             |> DynObj.withOptionalProperty               "legendgrouptitle"  LegendGroupTitle                    
             |> DynObj.withOptionalProperty               "opacity"           Opacity                             
             |> DynObj.withOptionalProperty               "ids"               Ids                                 
+            |> DynObj.withOptionalProperty               "ids"               IdsEncoded                          
             |> DynObj.withOptionalSingleOrMultiProperty  "x"                 (X, MultiX)                         
+            |> DynObj.withOptionalProperty               "x"                 XEncoded                            
             |> DynObj.withOptionalProperty               "x0"                X0                                  
             |> DynObj.withOptionalProperty               "dx"                DX                                  
             |> DynObj.withOptionalPropertyBy             "xtype"             XType                               StyleParam.CoordinateType.convert
             |> DynObj.withOptionalProperty               "xgap"              XGap                                
             |> DynObj.withOptionalSingleOrMultiProperty  "y"                 (Y, MultiY)                         
+            |> DynObj.withOptionalProperty               "y"                 YEncoded                            
             |> DynObj.withOptionalProperty               "y0"                Y0                                  
             |> DynObj.withOptionalProperty               "dy"                DY                                  
             |> DynObj.withOptionalPropertyBy             "ytype"             YType                               StyleParam.CoordinateType.convert
             |> DynObj.withOptionalProperty               "ygap"              YGap                                
             |> DynObj.withOptionalProperty               "z"                 Z                                   
+            |> DynObj.withOptionalProperty               "z"                 ZEncoded                            
             |> DynObj.withOptionalSingleOrMultiProperty  "text"              (Text, MultiText)                   
+            |> DynObj.withOptionalProperty               "text"              MultiTextEncoded                    
             |> DynObj.withOptionalProperty               "texttemplate"      TextTemplate                        
             |> DynObj.withOptionalSingleOrMultiProperty  "hovertext"         (HoverText, MultiHoverText)         
             |> DynObj.withOptionalPropertyBy             "hoverinfo"         HoverInfo                           StyleParam.HoverInfo.convert
@@ -1954,6 +2163,7 @@ type Trace2DStyle() =
             |> DynObj.withOptionalProperty               "yhoverformat"      YHoverFormat                        
             |> DynObj.withOptionalProperty               "meta"              Meta                                
             |> DynObj.withOptionalProperty               "customdata"        CustomData                          
+            |> DynObj.withOptionalProperty               "customdata"        CustomDataEncoded                   
             |> DynObj.withOptionalPropertyBy             "xaxis"             XAxis                               StyleParam.LinearAxisId.convert
             |> DynObj.withOptionalPropertyBy             "yaxis"             YAxis                               StyleParam.LinearAxisId.convert
             |> DynObj.withOptionalPropertyBy             "coloraxis"         ColorAxis                           StyleParam.SubPlotId.convert
@@ -1995,6 +2205,7 @@ type Trace2DStyle() =
     /// <param name="LegendGroupTitle">Sets the legend group title for this trace.</param>
     /// <param name="Opacity">Sets the opacity of the trace.</param>
     /// <param name="Ids">Assigns id labels to each datum. These ids for object constancy of data points during animation. Should be an array of strings, not numbers or any other type.</param>
+    /// <param name="IdsEncoded">Assigns id labels to each datum as a base64 encoded typed array object.</param>
     /// <param name="X0">Set the image's x position.</param>
     /// <param name="DX">Set the pixel's horizontal size.</param>
     /// <param name="Y0">Set the image's y position.</param>
@@ -2003,6 +2214,7 @@ type Trace2DStyle() =
     /// <param name="Source">Specifies the data URI of the image to be visualized. The URI consists of "data:image/[&lt;media subtype&gt;][;base64],&lt;data&gt;"</param>
     /// <param name="Text">Sets text elements associated with each (x,y) pair. If a single string, the same string appears over all the data points. If an array of string, the items are mapped in order to the this trace's (x,y) coordinates. If trace `hoverinfo` contains a "text" flag and "hovertext" is not set, these elements will be seen in the hover labels.</param>
     /// <param name="MultiText">Sets text elements associated with each (x,y) pair. If a single string, the same string appears over all the data points. If an array of string, the items are mapped in order to the this trace's (x,y) coordinates. If trace `hoverinfo` contains a "text" flag and "hovertext" is not set, these elements will be seen in the hover labels.</param>
+    /// <param name="MultiTextEncoded">Sets text elements associated with each (x,y) pair as a base64 encoded typed array object.</param>
     /// <param name="HoverText">Sets hover text elements associated with each (x,y) pair. If a single string, the same string appears over all the data points. If an array of string, the items are mapped in order to the this trace's (x,y) coordinates. To be seen, trace `hoverinfo` must contain a "text" flag.</param>
     /// <param name="MultiHoverText">Sets hover text elements associated with each (x,y) pair. If a single string, the same string appears over all the data points. If an array of string, the items are mapped in order to the this trace's (x,y) coordinates. To be seen, trace `hoverinfo` must contain a "text" flag.</param>
     /// <param name="HoverInfo">Determines which trace information appear on hover. If `none` or `skip` are set, no information is displayed upon hovering. But, if `none` is set, click and hover events are still fired.</param>
@@ -2010,6 +2222,7 @@ type Trace2DStyle() =
     /// <param name="MultiHoverTemplate">Template string used for rendering the information that appear on hover box. Note that this will override `hoverinfo`. Variables are inserted using %{variable}, for example "y: %{y}" as well as %{xother}, {%_xother}, {%_xother_}, {%xother_}. When showing info for several points, "xother" will be added to those with different x positions from the first point. An underscore before or after "(x|y)other" will add a space on that side, only when this field is shown. Numbers are formatted using d3-format's syntax %{variable:d3-format}, for example "Price: %{y:$.2f}". https://github.com/d3/d3-format/tree/v1.4.5#d3-format for details on the formatting syntax. Dates are formatted using d3-time-format's syntax %{variable|d3-time-format}, for example "Day: %{2019-01-01|%A}". https://github.com/d3/d3-time-format/tree/v2.2.3#locale_format for details on the date formatting syntax. The variables available in `hovertemplate` are the ones emitted as event data described at this link https://plotly.com/javascript/plotlyjs-events/#event-data. Additionally, every attributes that can be specified per-point (the ones that are `arrayOk: true`) are available. variable `norm` Anything contained in tag `&lt;extra&gt;` is displayed in the secondary box, for example "&lt;extra&gt;{fullData.name}&lt;/extra&gt;". To hide the secondary box completely, use an empty tag `&lt;extra&gt;&lt;/extra&gt;`.</param>
     /// <param name="Meta">Assigns extra meta information associated with this trace that can be used in various text attributes. Attributes such as trace `name`, graph, axis and colorbar `title.text`, annotation `text` `rangeselector`, `updatemenues` and `sliders` `label` text all support `meta`. To access the trace `meta` values in an attribute in the same trace, simply use `%{meta[i]}` where `i` is the index or key of the `meta` item in question. To access trace `meta` in layout attributes, use `%{data[n[.meta[i]}` where `i` is the index or key of the `meta` and `n` is the trace index.</param>
     /// <param name="CustomData">Assigns extra data each datum. This may be useful when listening to hover, click and selection events. Note that, "scatter" traces also appends customdata items in the markers DOM elements</param>
+    /// <param name="CustomDataEncoded">Assigns extra data each datum as a base64 encoded typed array object.</param>
     /// <param name="XAxis">Sets a reference between this trace's x coordinates and a 2D cartesian x axis. If "x" (the default value), the x coordinates refer to `layout.xaxis`. If "x2", the x coordinates refer to `layout.xaxis2`, and so on.</param>
     /// <param name="YAxis">Sets a reference between this trace's y coordinates and a 2D cartesian y axis. If "y" (the default value), the y coordinates refer to `layout.yaxis`. If "y2", the y coordinates refer to `layout.yaxis2`, and so on.</param>
     /// <param name="ColorModel">Color model used to map the numerical color components described in `z` into colors. If `source` is specified, this attribute will be set to `rgba256` otherwise it defaults to `rgb`.</param>
@@ -2029,6 +2242,7 @@ type Trace2DStyle() =
             ?LegendGroupTitle: Title,
             ?Opacity: float,
             ?Ids: seq<#IConvertible>,
+            ?IdsEncoded: EncodedTypedArray,
             ?X0: #IConvertible,
             ?DX: #IConvertible,
             ?Y0: #IConvertible,
@@ -2037,6 +2251,7 @@ type Trace2DStyle() =
             ?Source: string,
             ?Text: #IConvertible,
             ?MultiText: seq<#IConvertible>,
+            ?MultiTextEncoded: EncodedTypedArray,
             ?HoverText: string,
             ?MultiHoverText: seq<string>,
             ?HoverInfo: StyleParam.HoverInfo,
@@ -2044,6 +2259,7 @@ type Trace2DStyle() =
             ?MultiHoverTemplate: seq<string>,
             ?Meta: string,
             ?CustomData: seq<#IConvertible>,
+            ?CustomDataEncoded: EncodedTypedArray,
             ?XAxis: StyleParam.LinearAxisId,
             ?YAxis: StyleParam.LinearAxisId,
             ?ColorModel: StyleParam.ColorModel,
@@ -2065,6 +2281,7 @@ type Trace2DStyle() =
             |> DynObj.withOptionalProperty               "legendgrouptitle" LegendGroupTitle                    
             |> DynObj.withOptionalProperty               "opacity"          Opacity                             
             |> DynObj.withOptionalProperty               "ids"              Ids                                 
+            |> DynObj.withOptionalProperty               "ids"              IdsEncoded                          
             |> DynObj.withOptionalProperty               "x0"               X0                                  
             |> DynObj.withOptionalProperty               "dx"               DX                                  
             |> DynObj.withOptionalProperty               "y0"               Y0                                  
@@ -2072,11 +2289,13 @@ type Trace2DStyle() =
             |> DynObj.withOptionalProperty               "z"                Z                                   
             |> DynObj.withOptionalProperty               "source"           Source                              
             |> DynObj.withOptionalSingleOrMultiProperty  "text"             (Text, MultiText)                   
+            |> DynObj.withOptionalProperty               "text"             MultiTextEncoded                    
             |> DynObj.withOptionalSingleOrMultiProperty  "hovertext"        (HoverText, MultiHoverText)         
             |> DynObj.withOptionalPropertyBy             "hoverinfo"        HoverInfo                           StyleParam.HoverInfo.convert
             |> DynObj.withOptionalSingleOrMultiProperty  "hovertemplate"    (HoverTemplate, MultiHoverTemplate) 
             |> DynObj.withOptionalProperty               "meta"             Meta                                
             |> DynObj.withOptionalProperty               "customdata"       CustomData                          
+            |> DynObj.withOptionalProperty               "customdata"       CustomDataEncoded                   
             |> DynObj.withOptionalPropertyBy             "xaxis"            XAxis                               StyleParam.LinearAxisId.convert
             |> DynObj.withOptionalPropertyBy             "yaxis"            YAxis                               StyleParam.LinearAxisId.convert
             |> DynObj.withOptionalPropertyBy             "colormodel"       ColorModel                          StyleParam.ColorModel.convert
@@ -2098,19 +2317,24 @@ type Trace2DStyle() =
     /// <param name="LegendGroupTitle">Sets the legend group title for this trace.</param>
     /// <param name="Opacity">Sets the opacity of the trace.</param>
     /// <param name="Ids">Assigns id labels to each datum. These ids for object constancy of data points during animation. Should be an array of strings, not numbers or any other type.</param>
+    /// <param name="IdsEncoded">Assigns id labels to each datum as a base64 encoded typed array object.</param>
     /// <param name="X">Sets the x coordinates.</param>
     /// <param name="MultiX">Sets the x coordinates.</param>
+    /// <param name="XEncoded">Sets the x coordinates as a base64 encoded typed array object.</param>
     /// <param name="X0">Alternate to `x`. Builds a linear space of x coordinates. Use with `dx` where `x0` is the starting coordinate and `dx` the step.</param>
     /// <param name="DX">Sets the x coordinate step. See `x0` for more info.</param>
     /// <param name="XType">If "array", the heatmap's x coordinates are given by "x" (the default behavior when `x` is provided). If "scaled", the heatmap's x coordinates are given by "x0" and "dx" (the default behavior when `x` is not provided).</param>
     /// <param name="Y">Sets the y coordinates.</param>
     /// <param name="MultiY">Sets the y coordinates.</param>
+    /// <param name="YEncoded">Sets the y coordinates as a base64 encoded typed array object.</param>
     /// <param name="Y0">Alternate to `y`. Builds a linear space of y coordinates. Use with `dy` where `y0` is the starting coordinate and `dy` the step.</param>
     /// <param name="DY">Sets the y coordinate step. See `y0` for more info.</param>
     /// <param name="YType">If "array", the heatmap's y coordinates are given by "y" (the default behavior when `y` is provided) If "scaled", the heatmap's y coordinates are given by "y0" and "dy" (the default behavior when `y` is not provided)</param>
     /// <param name="Z">Sets the z data.</param>
+    /// <param name="ZEncoded">Sets the z data as a flattened base64 encoded typed array object. Use `shape` to declare the matrix dimensions.</param>
     /// <param name="Text">Sets text elements associated with each (x,y) pair. If a single string, the same string appears over all the data points. If an array of string, the items are mapped in order to the this trace's (x,y) coordinates. If trace `hoverinfo` contains a "text" flag and "hovertext" is not set, these elements will be seen in the hover labels.</param>
     /// <param name="MultiText">Sets text elements associated with each (x,y) pair. If a single string, the same string appears over all the data points. If an array of string, the items are mapped in order to the this trace's (x,y) coordinates. If trace `hoverinfo` contains a "text" flag and "hovertext" is not set, these elements will be seen in the hover labels.</param>
+    /// <param name="MultiTextEncoded">Sets text elements associated with each (x,y) pair as a base64 encoded typed array object.</param>
     /// <param name="TextTemplate">For this trace it only has an effect if `coloring` is set to "heatmap". Template string used for rendering the information text that appear on points. Note that this will override `textinfo`. Variables are inserted using %{variable}, for example "y: %{y}". Numbers are formatted using d3-format's syntax %{variable:d3-format}, for example "Price: %{y:$.2f}". https://github.com/d3/d3-format/tree/v1.4.5#d3-format for details on the formatting syntax. Dates are formatted using d3-time-format's syntax %{variable|d3-time-format}, for example "Day: %{2019-01-01|%A}". https://github.com/d3/d3-time-format/tree/v2.2.3#locale_format for details on the date formatting syntax. Every attributes that can be specified per-point (the ones that are `arrayOk: true`) are available.</param>
     /// <param name="HoverText">Sets hover text elements associated with each (x,y) pair. If a single string, the same string appears over all the data points. If an array of string, the items are mapped in order to the this trace's (x,y) coordinates. To be seen, trace `hoverinfo` must contain a "text" flag.</param>
     /// <param name="MultiHoverText">Sets hover text elements associated with each (x,y) pair. If a single string, the same string appears over all the data points. If an array of string, the items are mapped in order to the this trace's (x,y) coordinates. To be seen, trace `hoverinfo` must contain a "text" flag.</param>
@@ -2121,6 +2345,7 @@ type Trace2DStyle() =
     /// <param name="YHoverFormat">Sets the hover text formatting rulefor `y` using d3 formatting mini-languages which are very similar to those in Python. For numbers, see: https://github.com/d3/d3-format/tree/v1.4.5#d3-format. And for dates see: https://github.com/d3/d3-time-format/tree/v2.2.3#locale_format. We add two items to d3's date formatter: "%h" for half of the year as a decimal number as well as "%{n}f" for fractional seconds with n digits. For example, "2016-10-13 09:15:23.456" with tickformat "%H~%M~%S.%2f" would display "09~15~23.46"By default the values are formatted using `xaxis.hoverformat`.</param>
     /// <param name="Meta">Assigns extra meta information associated with this trace that can be used in various text attributes. Attributes such as trace `name`, graph, axis and colorbar `title.text`, annotation `text` `rangeselector`, `updatemenues` and `sliders` `label` text all support `meta`. To access the trace `meta` values in an attribute in the same trace, simply use `%{meta[i]}` where `i` is the index or key of the `meta` item in question. To access trace `meta` in layout attributes, use `%{data[n[.meta[i]}` where `i` is the index or key of the `meta` and `n` is the trace index.</param>
     /// <param name="CustomData">Assigns extra data each datum. This may be useful when listening to hover, click and selection events. Note that, "scatter" traces also appends customdata items in the markers DOM elements</param>
+    /// <param name="CustomDataEncoded">Assigns extra data each datum as a base64 encoded typed array object.</param>
     /// <param name="XAxis">Sets a reference between this trace's x coordinates and a 2D cartesian x axis. If "x" (the default value), the x coordinates refer to `layout.xaxis`. If "x2", the x coordinates refer to `layout.xaxis2`, and so on.</param>
     /// <param name="YAxis">Sets a reference between this trace's y coordinates and a 2D cartesian y axis. If "y" (the default value), the y coordinates refer to `layout.yaxis`. If "y2", the y coordinates refer to `layout.yaxis2`, and so on.</param>
     /// <param name="ColorAxis">Sets a reference to a shared color axis. References to these shared color axes are "coloraxis", "coloraxis2", "coloraxis3", etc. Settings for these shared color axes are set in the layout, under `layout.coloraxis`, `layout.coloraxis2`, etc. Note that multiple color scales can be linked to the same color axis.</param>
@@ -2164,19 +2389,24 @@ type Trace2DStyle() =
             ?LegendGroupTitle: Title,
             ?Opacity: float,
             ?Ids: seq<#IConvertible>,
+            ?IdsEncoded: EncodedTypedArray,
             ?X: seq<#IConvertible>,
             ?MultiX: seq<seq<#IConvertible>>,
+            ?XEncoded: EncodedTypedArray,
             ?X0: #IConvertible,
             ?DX: #IConvertible,
             ?XType: StyleParam.CoordinateType,
             ?Y: seq<#IConvertible>,
             ?MultiY: seq<seq<#IConvertible>>,
+            ?YEncoded: EncodedTypedArray,
             ?Y0: #IConvertible,
             ?DY: #IConvertible,
             ?YType: StyleParam.CoordinateType,
             ?Z: seq<#seq<#IConvertible>>,
+            ?ZEncoded: EncodedTypedArray,
             ?Text: #IConvertible,
             ?MultiText: seq<#IConvertible>,
+            ?MultiTextEncoded: EncodedTypedArray,
             ?TextTemplate: string,
             ?HoverText: string,
             ?MultiHoverText: seq<string>,
@@ -2187,6 +2417,7 @@ type Trace2DStyle() =
             ?YHoverFormat: string,
             ?Meta: string,
             ?CustomData: seq<#IConvertible>,
+            ?CustomDataEncoded: EncodedTypedArray,
             ?XAxis: StyleParam.LinearAxisId,
             ?YAxis: StyleParam.LinearAxisId,
             ?ColorAxis: StyleParam.SubPlotId,
@@ -2232,17 +2463,22 @@ type Trace2DStyle() =
             |> DynObj.withOptionalProperty               "legendgrouptitle" LegendGroupTitle                    
             |> DynObj.withOptionalProperty               "opacity"          Opacity                             
             |> DynObj.withOptionalProperty               "ids"              Ids                                 
+            |> DynObj.withOptionalProperty               "ids"              IdsEncoded                          
             |> DynObj.withOptionalSingleOrMultiProperty  "x"                (X, MultiX)                         
+            |> DynObj.withOptionalProperty               "x"                XEncoded                            
             |> DynObj.withOptionalProperty               "x0"               X0                                  
             |> DynObj.withOptionalProperty               "dx"               DX                                  
             |> DynObj.withOptionalPropertyBy             "xtype"            XType                               StyleParam.CoordinateType.convert
             |> DynObj.withOptionalSingleOrMultiProperty  "y"                (Y, MultiY)                         
+            |> DynObj.withOptionalProperty               "y"                YEncoded                            
             |> DynObj.withOptionalProperty               "y0"               Y0                                  
             |> DynObj.withOptionalProperty               "dy"               DY                                  
             |> DynObj.withOptionalPropertyBy             "ytype"            YType                               StyleParam.CoordinateType.convert
             |> DynObj.withOptionalProperty               "z"                Z                                   
+            |> DynObj.withOptionalProperty               "z"                ZEncoded                            
             |> DynObj.withOptionalProperty               "texttemplate"     TextTemplate                        
             |> DynObj.withOptionalSingleOrMultiProperty  "text"             (Text, MultiText)                   
+            |> DynObj.withOptionalProperty               "text"             MultiTextEncoded                    
             |> DynObj.withOptionalSingleOrMultiProperty  "hovertext"        (HoverText, MultiHoverText)         
             |> DynObj.withOptionalPropertyBy             "hoverinfo"        HoverInfo                           StyleParam.HoverInfo.convert
             |> DynObj.withOptionalSingleOrMultiProperty  "hovertemplate"    (HoverTemplate, MultiHoverTemplate) 
@@ -2250,6 +2486,7 @@ type Trace2DStyle() =
             |> DynObj.withOptionalProperty               "yhoverformat"     YHoverFormat                        
             |> DynObj.withOptionalProperty               "meta"             Meta                                
             |> DynObj.withOptionalProperty               "customdata"       CustomData                          
+            |> DynObj.withOptionalProperty               "customdata"       CustomDataEncoded                   
             |> DynObj.withOptionalPropertyBy             "xaxis"            XAxis                               StyleParam.LinearAxisId.convert
             |> DynObj.withOptionalPropertyBy             "yaxis"            YAxis                               StyleParam.LinearAxisId.convert
             |> DynObj.withOptionalPropertyBy             "coloraxis"        ColorAxis                           StyleParam.SubPlotId.convert
@@ -2295,14 +2532,21 @@ type Trace2DStyle() =
     /// <param name="LegendGroupTitle">Sets the legend group title for this trace.</param>
     /// <param name="Opacity">Sets the opacity of the trace.</param>
     /// <param name="Ids">Assigns id labels to each datum. These ids for object constancy of data points during animation. Should be an array of strings, not numbers or any other type.</param>
+    /// <param name="IdsEncoded">Assigns id labels as a base64-encoded typed array (plotly.js &gt;= 2.28.0). If provided, overrides <c>Ids</c>.</param>
     /// <param name="X">Sets the x coordinates.</param>
     /// <param name="MultiX">Sets the x coordinates.</param>
+    /// <param name="XEncoded">Sets the x coordinates as a base64-encoded typed array (plotly.js &gt;= 2.28.0). If provided, overrides <c>X</c>/<c>MultiX</c>.</param>
     /// <param name="Close">Sets the close values.</param>
+    /// <param name="CloseEncoded">Sets the close values as a base64-encoded typed array (plotly.js &gt;= 2.28.0). If provided, overrides <c>Close</c>.</param>
     /// <param name="Open">Sets the open values.</param>
+    /// <param name="OpenEncoded">Sets the open values as a base64-encoded typed array (plotly.js &gt;= 2.28.0). If provided, overrides <c>Open</c>.</param>
     /// <param name="High">Sets the high values.</param>
+    /// <param name="HighEncoded">Sets the high values as a base64-encoded typed array (plotly.js &gt;= 2.28.0). If provided, overrides <c>High</c>.</param>
     /// <param name="Low">Sets the low values.</param>
+    /// <param name="LowEncoded">Sets the low values as a base64-encoded typed array (plotly.js &gt;= 2.28.0). If provided, overrides <c>Low</c>.</param>
     /// <param name="Text">Sets text elements associated with each (x,y) pair. If a single string, the same string appears over all the data points. If an array of string, the items are mapped in order to the this trace's (x,y) coordinates. If trace `hoverinfo` contains a "text" flag and "hovertext" is not set, these elements will be seen in the hover labels.</param>
     /// <param name="MultiText">Sets text elements associated with each (x,y) pair. If a single string, the same string appears over all the data points. If an array of string, the items are mapped in order to the this trace's (x,y) coordinates. If trace `hoverinfo` contains a "text" flag and "hovertext" is not set, these elements will be seen in the hover labels.</param>
+    /// <param name="MultiTextEncoded">Sets the per-point text array as a base64-encoded typed array (plotly.js &gt;= 2.28.0). If provided, overrides <c>Text</c>/<c>MultiText</c>.</param>
     /// <param name="HoverText">Sets hover text elements associated with each (x,y) pair. If a single string, the same string appears over all the data points. If an array of string, the items are mapped in order to the this trace's (x,y) coordinates. To be seen, trace `hoverinfo` must contain a "text" flag.</param>
     /// <param name="MultiHoverText">Sets hover text elements associated with each (x,y) pair. If a single string, the same string appears over all the data points. If an array of string, the items are mapped in order to the this trace's (x,y) coordinates. To be seen, trace `hoverinfo` must contain a "text" flag.</param>
     /// <param name="HoverInfo">Determines which trace information appear on hover. If `none` or `skip` are set, no information is displayed upon hovering. But, if `none` is set, click and hover events are still fired.</param>
@@ -2310,6 +2554,7 @@ type Trace2DStyle() =
     /// <param name="YHoverFormat">Sets the hover text formatting rulefor `y` using d3 formatting mini-languages which are very similar to those in Python. For numbers, see: https://github.com/d3/d3-format/tree/v1.4.5#d3-format. And for dates see: https://github.com/d3/d3-time-format/tree/v2.2.3#locale_format. We add two items to d3's date formatter: "%h" for half of the year as a decimal number as well as "%{n}f" for fractional seconds with n digits. For example, "2016-10-13 09:15:23.456" with tickformat "%H~%M~%S.%2f" would display "09~15~23.46"By default the values are formatted using `xaxis.hoverformat`.</param>
     /// <param name="Meta">Assigns extra meta information associated with this trace that can be used in various text attributes. Attributes such as trace `name`, graph, axis and colorbar `title.text`, annotation `text` `rangeselector`, `updatemenues` and `sliders` `label` text all support `meta`. To access the trace `meta` values in an attribute in the same trace, simply use `%{meta[i]}` where `i` is the index or key of the `meta` item in question. To access trace `meta` in layout attributes, use `%{data[n[.meta[i]}` where `i` is the index or key of the `meta` and `n` is the trace index.</param>
     /// <param name="CustomData">Assigns extra data each datum. This may be useful when listening to hover, click and selection events. Note that, "scatter" traces also appends customdata items in the markers DOM elements</param>
+    /// <param name="CustomDataEncoded">Assigns extra data for each datum as a base64-encoded typed array (plotly.js &gt;= 2.28.0). If provided, overrides <c>CustomData</c>.</param>
     /// <param name="XAxis">Sets a reference between this trace's x coordinates and a 2D cartesian x axis. If "x" (the default value), the x coordinates refer to `layout.xaxis`. If "x2", the x coordinates refer to `layout.xaxis2`, and so on.</param>
     /// <param name="YAxis">Sets a reference between this trace's y coordinates and a 2D cartesian y axis. If "y" (the default value), the y coordinates refer to `layout.yaxis`. If "y2", the y coordinates refer to `layout.yaxis2`, and so on.</param>
     /// <param name="XPeriod">Only relevant when the axis `type` is "date". Sets the period positioning in milliseconds or "M&lt;n&gt;" on the x axis. Special values in the form of "M&lt;n&gt;" could be used to declare the number of months. In this case `n` must be a positive integer.</param>
@@ -2320,6 +2565,7 @@ type Trace2DStyle() =
     /// <param name="YPeriod0">Only relevant when the axis `type` is "date". Sets the base for period positioning in milliseconds or date string on the y0 axis. When `y0period` is round number of weeks, the `y0period0` by default would be on a Sunday i.e. 2000-01-02, otherwise it would be at 2000-01-01.</param>
     /// <param name="Line">Sets the line of this trace.</param>
     /// <param name="SelectedPoints">Array containing integer indices of selected points. Has an effect only for traces that support selections. Note that an empty array means an empty selection where the `unselected` are turned on for all points, whereas, any other non-array values means no selection all where the `selected` and `unselected` styles have no effect.</param>
+    /// <param name="SelectedPointsEncoded">Sets the selected-point indices as a base64-encoded typed array (plotly.js &gt;= 2.28.0). If provided, overrides <c>SelectedPoints</c>.</param>
     /// <param name="Increasing">Sets the styles for increasing candles</param>
     /// <param name="Decreasing">Sets the styles for decreasing candles</param>
     /// <param name="HoverLabel">Sets the style of the hoverlabels of this trace.</param>
@@ -2337,14 +2583,21 @@ type Trace2DStyle() =
             ?LegendGroupTitle: Title,
             ?Opacity: float,
             ?Ids: seq<#IConvertible>,
+            ?IdsEncoded: EncodedTypedArray,
             ?X: seq<#IConvertible>,
             ?MultiX: seq<seq<#IConvertible>>,
+            ?XEncoded: EncodedTypedArray,
             ?Close: seq<#IConvertible>,
+            ?CloseEncoded: EncodedTypedArray,
             ?Open: seq<#IConvertible>,
+            ?OpenEncoded: EncodedTypedArray,
             ?High: seq<#IConvertible>,
+            ?HighEncoded: EncodedTypedArray,
             ?Low: seq<#IConvertible>,
+            ?LowEncoded: EncodedTypedArray,
             ?Text: #IConvertible,
             ?MultiText: seq<#IConvertible>,
+            ?MultiTextEncoded: EncodedTypedArray,
             ?HoverText: string,
             ?MultiHoverText: seq<string>,
             ?HoverInfo: StyleParam.HoverInfo,
@@ -2352,6 +2605,7 @@ type Trace2DStyle() =
             ?YHoverFormat: string,
             ?Meta: string,
             ?CustomData: seq<#IConvertible>,
+            ?CustomDataEncoded: EncodedTypedArray,
             ?XAxis: StyleParam.LinearAxisId,
             ?YAxis: StyleParam.LinearAxisId,
             ?XPeriod: #IConvertible,
@@ -2362,6 +2616,7 @@ type Trace2DStyle() =
             ?YPeriod0: #IConvertible,
             ?Line: Line,
             ?SelectedPoints: seq<#IConvertible>,
+            ?SelectedPointsEncoded: EncodedTypedArray,
             ?Increasing: FinanceMarker,
             ?Decreasing: FinanceMarker,
             ?HoverLabel: Hoverlabel,
@@ -2381,18 +2636,26 @@ type Trace2DStyle() =
             |> DynObj.withOptionalProperty               "legendgrouptitle" LegendGroupTitle            
             |> DynObj.withOptionalProperty               "opacity"          Opacity                     
             |> DynObj.withOptionalProperty               "ids"              Ids                         
+            |> DynObj.withOptionalProperty               "ids"              IdsEncoded
             |> DynObj.withOptionalSingleOrMultiProperty  "x"                (X, MultiX)                 
+            |> DynObj.withOptionalProperty               "x"                XEncoded
             |> DynObj.withOptionalProperty               "close"            Close                       
+            |> DynObj.withOptionalProperty               "close"            CloseEncoded
             |> DynObj.withOptionalProperty               "open"             Open                        
+            |> DynObj.withOptionalProperty               "open"             OpenEncoded
             |> DynObj.withOptionalProperty               "high"             High                        
+            |> DynObj.withOptionalProperty               "high"             HighEncoded
             |> DynObj.withOptionalProperty               "low"              Low                         
+            |> DynObj.withOptionalProperty               "low"              LowEncoded
             |> DynObj.withOptionalSingleOrMultiProperty  "text"             (Text, MultiText)           
+            |> DynObj.withOptionalProperty               "text"             MultiTextEncoded
             |> DynObj.withOptionalSingleOrMultiProperty  "hovertext"        (HoverText, MultiHoverText) 
             |> DynObj.withOptionalPropertyBy             "hoverinfo"        HoverInfo                   StyleParam.HoverInfo.convert
             |> DynObj.withOptionalProperty               "xhoverformat"     XHoverFormat                
             |> DynObj.withOptionalProperty               "yhoverformat"     YHoverFormat                
             |> DynObj.withOptionalProperty               "meta"             Meta                        
             |> DynObj.withOptionalProperty               "customdata"       CustomData                  
+            |> DynObj.withOptionalProperty               "customdata"       CustomDataEncoded
             |> DynObj.withOptionalPropertyBy             "xaxis"            XAxis                       StyleParam.LinearAxisId.convert
             |> DynObj.withOptionalPropertyBy             "yaxis"            YAxis                       StyleParam.LinearAxisId.convert
             |> DynObj.withOptionalProperty               "xperiod"          XPeriod                     
@@ -2403,6 +2666,7 @@ type Trace2DStyle() =
             |> DynObj.withOptionalProperty               "yperiod0"         YPeriod0                    
             |> DynObj.withOptionalProperty               "line"             Line                        
             |> DynObj.withOptionalProperty               "selectedpoints"   SelectedPoints                        
+            |> DynObj.withOptionalProperty               "selectedpoints"   SelectedPointsEncoded
             |> DynObj.withOptionalProperty               "increasing"       Increasing                  
             |> DynObj.withOptionalProperty               "decreasing"       Decreasing                  
             |> DynObj.withOptionalProperty               "hoverlabel"       HoverLabel                  
@@ -2422,14 +2686,21 @@ type Trace2DStyle() =
     /// <param name="LegendGroupTitle">Sets the legend group title for this trace.</param>
     /// <param name="Opacity">Sets the opacity of the trace.</param>
     /// <param name="Ids">Assigns id labels to each datum. These ids for object constancy of data points during animation. Should be an array of strings, not numbers or any other type.</param>
+    /// <param name="IdsEncoded">Assigns id labels as a base64-encoded typed array (plotly.js &gt;= 2.28.0). If provided, overrides <c>Ids</c>.</param>
     /// <param name="X">Sets the x coordinates.</param>
     /// <param name="MultiX">Sets the x coordinates.</param>
+    /// <param name="XEncoded">Sets the x coordinates as a base64-encoded typed array (plotly.js &gt;= 2.28.0). If provided, overrides <c>X</c>/<c>MultiX</c>.</param>
     /// <param name="Close">Sets the close values.</param>
+    /// <param name="CloseEncoded">Sets the close values as a base64-encoded typed array (plotly.js &gt;= 2.28.0). If provided, overrides <c>Close</c>.</param>
     /// <param name="Open">Sets the open values.</param>
+    /// <param name="OpenEncoded">Sets the open values as a base64-encoded typed array (plotly.js &gt;= 2.28.0). If provided, overrides <c>Open</c>.</param>
     /// <param name="High">Sets the high values.</param>
+    /// <param name="HighEncoded">Sets the high values as a base64-encoded typed array (plotly.js &gt;= 2.28.0). If provided, overrides <c>High</c>.</param>
     /// <param name="Low">Sets the low values.</param>
+    /// <param name="LowEncoded">Sets the low values as a base64-encoded typed array (plotly.js &gt;= 2.28.0). If provided, overrides <c>Low</c>.</param>
     /// <param name="Text">Sets text elements associated with each (x,y) pair. If a single string, the same string appears over all the data points. If an array of string, the items are mapped in order to the this trace's (x,y) coordinates. If trace `hoverinfo` contains a "text" flag and "hovertext" is not set, these elements will be seen in the hover labels.</param>
     /// <param name="MultiText">Sets text elements associated with each (x,y) pair. If a single string, the same string appears over all the data points. If an array of string, the items are mapped in order to the this trace's (x,y) coordinates. If trace `hoverinfo` contains a "text" flag and "hovertext" is not set, these elements will be seen in the hover labels.</param>
+    /// <param name="MultiTextEncoded">Sets the per-point text array as a base64-encoded typed array (plotly.js &gt;= 2.28.0). If provided, overrides <c>Text</c>/<c>MultiText</c>.</param>
     /// <param name="HoverText">Sets hover text elements associated with each (x,y) pair. If a single string, the same string appears over all the data points. If an array of string, the items are mapped in order to the this trace's (x,y) coordinates. To be seen, trace `hoverinfo` must contain a "text" flag.</param>
     /// <param name="MultiHoverText">Sets hover text elements associated with each (x,y) pair. If a single string, the same string appears over all the data points. If an array of string, the items are mapped in order to the this trace's (x,y) coordinates. To be seen, trace `hoverinfo` must contain a "text" flag.</param>
     /// <param name="HoverInfo">Determines which trace information appear on hover. If `none` or `skip` are set, no information is displayed upon hovering. But, if `none` is set, click and hover events are still fired.</param>
@@ -2437,6 +2708,7 @@ type Trace2DStyle() =
     /// <param name="YHoverFormat">Sets the hover text formatting rulefor `y` using d3 formatting mini-languages which are very similar to those in Python. For numbers, see: https://github.com/d3/d3-format/tree/v1.4.5#d3-format. And for dates see: https://github.com/d3/d3-time-format/tree/v2.2.3#locale_format. We add two items to d3's date formatter: "%h" for half of the year as a decimal number as well as "%{n}f" for fractional seconds with n digits. For example, "2016-10-13 09:15:23.456" with tickformat "%H~%M~%S.%2f" would display "09~15~23.46"By default the values are formatted using `xaxis.hoverformat`.</param>
     /// <param name="Meta">Assigns extra meta information associated with this trace that can be used in various text attributes. Attributes such as trace `name`, graph, axis and colorbar `title.text`, annotation `text` `rangeselector`, `updatemenues` and `sliders` `label` text all support `meta`. To access the trace `meta` values in an attribute in the same trace, simply use `%{meta[i]}` where `i` is the index or key of the `meta` item in question. To access trace `meta` in layout attributes, use `%{data[n[.meta[i]}` where `i` is the index or key of the `meta` and `n` is the trace index.</param>
     /// <param name="CustomData">Assigns extra data each datum. This may be useful when listening to hover, click and selection events. Note that, "scatter" traces also appends customdata items in the markers DOM elements</param>
+    /// <param name="CustomDataEncoded">Assigns extra data for each datum as a base64-encoded typed array (plotly.js &gt;= 2.28.0). If provided, overrides <c>CustomData</c>.</param>
     /// <param name="XAxis">Sets a reference between this trace's x coordinates and a 2D cartesian x axis. If "x" (the default value), the x coordinates refer to `layout.xaxis`. If "x2", the x coordinates refer to `layout.xaxis2`, and so on.</param>
     /// <param name="YAxis">Sets a reference between this trace's y coordinates and a 2D cartesian y axis. If "y" (the default value), the y coordinates refer to `layout.yaxis`. If "y2", the y coordinates refer to `layout.yaxis2`, and so on.</param>
     /// <param name="XPeriod">Only relevant when the axis `type` is "date". Sets the period positioning in milliseconds or "M&lt;n&gt;" on the x axis. Special values in the form of "M&lt;n&gt;" could be used to declare the number of months. In this case `n` must be a positive integer.</param>
@@ -2448,6 +2720,7 @@ type Trace2DStyle() =
     /// <param name="Line">Sets the line of this trace.</param>
     /// <param name="WhiskerWidth">Sets the width of the whiskers relative to the box' width. For example, with 1, the whiskers are as wide as the box(es).</param>
     /// <param name="SelectedPoints">Array containing integer indices of selected points. Has an effect only for traces that support selections. Note that an empty array means an empty selection where the `unselected` are turned on for all points, whereas, any other non-array values means no selection all where the `selected` and `unselected` styles have no effect.</param>
+    /// <param name="SelectedPointsEncoded">Sets the selected-point indices as a base64-encoded typed array (plotly.js &gt;= 2.28.0). If provided, overrides <c>SelectedPoints</c>.</param>
     /// <param name="Increasing">Sets the styles for increasing candles</param>
     /// <param name="Decreasing">Sets the styles for decreasing candles</param>
     /// <param name="HoverLabel">Sets the style of the hoverlabels of this trace.</param>
@@ -2464,14 +2737,21 @@ type Trace2DStyle() =
             ?LegendGroupTitle: Title,
             ?Opacity: float,
             ?Ids: seq<#IConvertible>,
+            ?IdsEncoded: EncodedTypedArray,
             ?X: seq<#IConvertible>,
             ?MultiX: seq<seq<#IConvertible>>,
+            ?XEncoded: EncodedTypedArray,
             ?Close: seq<#IConvertible>,
+            ?CloseEncoded: EncodedTypedArray,
             ?Open: seq<#IConvertible>,
+            ?OpenEncoded: EncodedTypedArray,
             ?High: seq<#IConvertible>,
+            ?HighEncoded: EncodedTypedArray,
             ?Low: seq<#IConvertible>,
+            ?LowEncoded: EncodedTypedArray,
             ?Text: #IConvertible,
             ?MultiText: seq<#IConvertible>,
+            ?MultiTextEncoded: EncodedTypedArray,
             ?HoverText: string,
             ?MultiHoverText: seq<string>,
             ?HoverInfo: StyleParam.HoverInfo,
@@ -2479,6 +2759,7 @@ type Trace2DStyle() =
             ?YHoverFormat: string,
             ?Meta: string,
             ?CustomData: seq<#IConvertible>,
+            ?CustomDataEncoded: EncodedTypedArray,
             ?XAxis: StyleParam.LinearAxisId,
             ?YAxis: StyleParam.LinearAxisId,
             ?XPeriod: #IConvertible,
@@ -2490,6 +2771,7 @@ type Trace2DStyle() =
             ?Line: Line,
             ?WhiskerWidth: float,
             ?SelectedPoints: seq<#IConvertible>,
+            ?SelectedPointsEncoded: EncodedTypedArray,
             ?Increasing: FinanceMarker,
             ?Decreasing: FinanceMarker,
             ?HoverLabel: Hoverlabel,
@@ -2508,18 +2790,26 @@ type Trace2DStyle() =
             |> DynObj.withOptionalProperty               "legendgrouptitle"   LegendGroupTitle            
             |> DynObj.withOptionalProperty               "opacity"            Opacity                     
             |> DynObj.withOptionalProperty               "ids"                Ids                         
+            |> DynObj.withOptionalProperty               "ids"                IdsEncoded
             |> DynObj.withOptionalSingleOrMultiProperty  "x"                  (X, MultiX)                 
+            |> DynObj.withOptionalProperty               "x"                  XEncoded
             |> DynObj.withOptionalProperty               "close"              Close                       
+            |> DynObj.withOptionalProperty               "close"              CloseEncoded
             |> DynObj.withOptionalProperty               "open"               Open                        
+            |> DynObj.withOptionalProperty               "open"               OpenEncoded
             |> DynObj.withOptionalProperty               "high"               High                        
+            |> DynObj.withOptionalProperty               "high"               HighEncoded
             |> DynObj.withOptionalProperty               "low"                Low                         
+            |> DynObj.withOptionalProperty               "low"                LowEncoded
             |> DynObj.withOptionalSingleOrMultiProperty  "text"               (Text, MultiText)           
+            |> DynObj.withOptionalProperty               "text"               MultiTextEncoded
             |> DynObj.withOptionalSingleOrMultiProperty  "hovertext"          (HoverText, MultiHoverText) 
             |> DynObj.withOptionalPropertyBy             "hoverinfo"          HoverInfo                   StyleParam.HoverInfo.convert
             |> DynObj.withOptionalProperty               "xhoverformat"       XHoverFormat                
             |> DynObj.withOptionalProperty               "yhoverformat"       YHoverFormat                
             |> DynObj.withOptionalProperty               "meta"               Meta                        
             |> DynObj.withOptionalProperty               "customdata"         CustomData                  
+            |> DynObj.withOptionalProperty               "customdata"         CustomDataEncoded
             |> DynObj.withOptionalPropertyBy             "xaxis"              XAxis                       StyleParam.LinearAxisId.convert
             |> DynObj.withOptionalPropertyBy             "yaxis"              YAxis                       StyleParam.LinearAxisId.convert
             |> DynObj.withOptionalProperty               "xperiod"            XPeriod                     
@@ -2531,6 +2821,7 @@ type Trace2DStyle() =
             |> DynObj.withOptionalProperty               "line"               Line                        
             |> DynObj.withOptionalProperty               "whiskerwidth"       WhiskerWidth                
             |> DynObj.withOptionalProperty               "selectedpoints"     SelectedPoints                
+            |> DynObj.withOptionalProperty               "selectedpoints"     SelectedPointsEncoded
             |> DynObj.withOptionalProperty               "increasing"         Increasing                  
             |> DynObj.withOptionalProperty               "decreasing"         Decreasing                  
             |> DynObj.withOptionalProperty               "hoverlabel"         HoverLabel                  
@@ -2549,8 +2840,10 @@ type Trace2DStyle() =
     /// <param name="LegendGroupTitle">Sets the legend group title for this trace.</param>
     /// <param name="Opacity">Sets the opacity of the trace.</param>
     /// <param name="Ids">Assigns id labels to each datum. These ids for object constancy of data points during animation. Should be an array of strings, not numbers or any other type.</param>
+    /// <param name="IdsEncoded">Assigns id labels as a base64-encoded typed array (plotly.js &gt;= 2.28.0). If provided, overrides <c>Ids</c>.</param>
     /// <param name="Text">Sets text elements associated with each (x,y) pair to appear on hover. If a single string, the same string appears over all the data points. If an array of string, the items are mapped in order to the this trace's (x,y) coordinates.</param>
     /// <param name="MultiText">Sets text elements associated with each (x,y) pair to appear on hover. If a single string, the same string appears over all the data points. If an array of string, the items are mapped in order to the this trace's (x,y) coordinates.</param>
+    /// <param name="MultiTextEncoded">Sets the per-point text array as a base64-encoded typed array (plotly.js &gt;= 2.28.0). If provided, overrides <c>Text</c>/<c>MultiText</c>.</param>
     /// <param name="Dimensions">Sets the dimensions of this trace.</param>
     /// <param name="HoverText">Sets hover text elements associated with each (x,y) pair. If a single string, the same string appears over all the data points. If an array of string, the items are mapped in order to the this trace's (x,y) coordinates. To be seen, trace `hoverinfo` must contain a "text" flag.</param>
     /// <param name="MultiHoverText">Sets hover text elements associated with each (x,y) pair. If a single string, the same string appears over all the data points. If an array of string, the items are mapped in order to the this trace's (x,y) coordinates. To be seen, trace `hoverinfo` must contain a "text" flag.</param>
@@ -2561,6 +2854,7 @@ type Trace2DStyle() =
     /// <param name="YHoverFormat">Sets the hover text formatting rulefor `y` using d3 formatting mini-languages which are very similar to those in Python. For numbers, see: https://github.com/d3/d3-format/tree/v1.4.5#d3-format. And for dates see: https://github.com/d3/d3-time-format/tree/v2.2.3#locale_format. We add two items to d3's date formatter: "%h" for half of the year as a decimal number as well as "%{n}f" for fractional seconds with n digits. For example, "2016-10-13 09:15:23.456" with tickformat "%H~%M~%S.%2f" would display "09~15~23.46"By default the values are formatted using `xaxis.hoverformat`.</param>
     /// <param name="Meta">Assigns extra meta information associated with this trace that can be used in various text attributes. Attributes such as trace `name`, graph, axis and colorbar `title.text`, annotation `text` `rangeselector`, `updatemenues` and `sliders` `label` text all support `meta`. To access the trace `meta` values in an attribute in the same trace, simply use `%{meta[i]}` where `i` is the index or key of the `meta` item in question. To access trace `meta` in layout attributes, use `%{data[n[.meta[i]}` where `i` is the index or key of the `meta` and `n` is the trace index.</param>
     /// <param name="CustomData">Assigns extra data each datum. This may be useful when listening to hover, click and selection events. Note that, "scatter" traces also appends customdata items in the markers DOM elements</param>
+    /// <param name="CustomDataEncoded">Assigns extra data for each datum as a base64-encoded typed array (plotly.js &gt;= 2.28.0). If provided, overrides <c>CustomData</c>.</param>
     /// <param name="Marker">Sets the marker of this trace.</param>
     /// <param name="Diagonal">Sets the styles applied to the scatter plot matrix diagonal</param>
     /// <param name="XAxes">Sets the list of x axes corresponding to dimensions of this splom trace. By default, a splom will match the first N xaxes where N is the number of input dimensions. Note that, in case where `diagonal.visible` is false and `showupperhalf` or `showlowerhalf` is false, this splom trace will generate one less x-axis and one less y-axis.</param>
@@ -2568,6 +2862,7 @@ type Trace2DStyle() =
     /// <param name="ShowLowerHalf">Determines whether or not subplots on the lower half from the diagonal are displayed.</param>
     /// <param name="ShowUpperHalf">Determines whether or not subplots on the upper half from the diagonal are displayed.</param>
     /// <param name="SelectedPoints">Array containing integer indices of selected points. Has an effect only for traces that support selections. Note that an empty array means an empty selection where the `unselected` are turned on for all points, whereas, any other non-array values means no selection all where the `selected` and `unselected` styles have no effect.</param>
+    /// <param name="SelectedPointsEncoded">Sets the selected-point indices as a base64-encoded typed array (plotly.js &gt;= 2.28.0). If provided, overrides <c>SelectedPoints</c>.</param>
     /// <param name="Selected">Sets the style of selected points of this trace.</param>
     /// <param name="Unselected">Sets the style of unselected points of this trace.</param>
     /// <param name="HoverLabel">Sets the style of the hoverlabels of this trace.</param>
@@ -2583,8 +2878,10 @@ type Trace2DStyle() =
             ?LegendGroupTitle: Title,
             ?Opacity: float,
             ?Ids: seq<#IConvertible>,
+            ?IdsEncoded: EncodedTypedArray,
             ?Text: #IConvertible,
             ?MultiText: seq<#IConvertible>,
+            ?MultiTextEncoded: EncodedTypedArray,
             ?Dimensions: seq<Dimension>,
             ?HoverText: string,
             ?MultiHoverText: seq<string>,
@@ -2595,6 +2892,7 @@ type Trace2DStyle() =
             ?YHoverFormat: string,
             ?Meta: string,
             ?CustomData: seq<#IConvertible>,
+            ?CustomDataEncoded: EncodedTypedArray,
             ?Marker: Marker,
             ?Diagonal: SplomDiagonal,
             ?XAxes: seq<StyleParam.LinearAxisId>,
@@ -2602,6 +2900,7 @@ type Trace2DStyle() =
             ?ShowLowerHalf: bool,
             ?ShowUpperHalf: bool,
             ?SelectedPoints: seq<#IConvertible>,
+            ?SelectedPointsEncoded: EncodedTypedArray,
             ?Selected: TraceSelection,
             ?Unselected: TraceSelection,
             ?HoverLabel: Hoverlabel,
@@ -2619,7 +2918,9 @@ type Trace2DStyle() =
             |> DynObj.withOptionalProperty               "legendgrouptitle" LegendGroupTitle                    
             |> DynObj.withOptionalProperty               "opacity"          Opacity                             
             |> DynObj.withOptionalProperty               "ids"              Ids                                 
+            |> DynObj.withOptionalProperty               "ids"              IdsEncoded
             |> DynObj.withOptionalSingleOrMultiProperty  "text"             (Text, MultiText)                   
+            |> DynObj.withOptionalProperty               "text"             MultiTextEncoded
             |> DynObj.withOptionalProperty               "dimensions"       Dimensions                          
             |> DynObj.withOptionalSingleOrMultiProperty  "hovertext"        (HoverText, MultiHoverText)         
             |> DynObj.withOptionalPropertyBy             "hoverinfo"        HoverInfo                           StyleParam.HoverInfo.convert
@@ -2628,6 +2929,7 @@ type Trace2DStyle() =
             |> DynObj.withOptionalProperty               "yhoverformat"     YHoverFormat                        
             |> DynObj.withOptionalProperty               "meta"             Meta                                
             |> DynObj.withOptionalProperty               "customdata"       CustomData                          
+            |> DynObj.withOptionalProperty               "customdata"       CustomDataEncoded
             |> DynObj.withOptionalProperty               "marker"           Marker                              
             |> DynObj.withOptionalProperty               "diagonal"         Diagonal                            
             |> DynObj.withOptionalPropertyBy             "xaxis"            XAxes                               (Seq.map StyleParam.LinearAxisId.convert)
@@ -2635,6 +2937,7 @@ type Trace2DStyle() =
             |> DynObj.withOptionalProperty               "showlowerhalf"    ShowLowerHalf                       
             |> DynObj.withOptionalProperty               "showupperhalf"    ShowUpperHalf                       
             |> DynObj.withOptionalProperty               "selectedpoints"   SelectedPoints                      
+            |> DynObj.withOptionalProperty               "selectedpoints"   SelectedPointsEncoded
             |> DynObj.withOptionalProperty               "selected"         Selected                            
             |> DynObj.withOptionalProperty               "unselected"       Unselected                          
             |> DynObj.withOptionalProperty               "hoverlabel"       HoverLabel                          

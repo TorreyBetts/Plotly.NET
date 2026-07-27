@@ -1,15 +1,15 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <TargetFramework>net8.0</TargetFramework>
+    <TargetFramework>net10.0</TargetFramework>
     <GenerateProgramFile>false</GenerateProgramFile>
     <IsPackable>false</IsPackable>
   </PropertyGroup>
 
   <ItemGroup>
-    <EmbeddedResource Include="..\..\..\src\Plotly.NET\plotly-2.27.1.min.js" />
-    <EmbeddedResource Include="..\..\..\src\Plotly.NET\plotly-2.27.1.min.js.LICENSE.txt" />
+    <EmbeddedResource Include="..\..\..\src\Plotly.NET\plotly-2.28.0.min.js" />
+    <EmbeddedResource Include="..\..\..\src\Plotly.NET\plotly-2.28.0.min.js.LICENSE.txt" />
     <!--HTMLCodegen-->
     <Compile Include="HTMLCodegen\Chart2D.fs" />
     <Compile Include="HTMLCodegen\Chart3D.fs" />
@@ -19,6 +19,7 @@
     <Compile Include="HTMLCodegen\ChartCarpet.fs" />
     <Compile Include="HTMLCodegen\ChartDomain.fs" />
     <Compile Include="HTMLCodegen\ChartSmith.fs" />
+    <Compile Include="HTMLCodegen\ChartComposite.fs" />
     <Compile Include="HTMLCodegen\SimpleTests.fs" />
     <Compile Include="HTMLCodegen\ChartLayout.fs" />
     <Compile Include="HTMLCodegen\MulticategoryData.fs" />
@@ -29,6 +30,7 @@
     <Compile Include="ChartAPIs\Combine.fs" />
     <Compile Include="CommonAbstractions\StyleParams.fs" />
     <Compile Include="CommonAbstractions\Colors.fs" />
+    <Compile Include="CommonAbstractions\EncodedTypedArray.fs" />
     <Compile Include="LayoutObjects\Layout.fs" />
     <Compile Include="LayoutObjects\Slider.fs" />
     <Compile Include="LayoutObjects\LinearAxis.fs" />
@@ -37,6 +39,7 @@
     <Compile Include="Traces\TraceStaticMembers.fs" />
     <Compile Include="Traces\TraceStyle.fs" />
     <Compile Include="Traces\TraceID.fs" />
+    <Compile Include="UpstreamFeatures\2.28.fs" />
     <Compile Include="UpstreamFeatures\2.27.fs" />
     <Compile Include="UpstreamFeatures\2.26.fs" />
     <Compile Include="UpstreamFeatures\2.25.fs" />
@@ -56,11 +59,11 @@
 
   <ItemGroup>
     <!--<PackageReference Update="FSharp.Core" Version="7.*" />-->
-    <PackageReference Include="Deedle" Version="2.4.1" />
+    <PackageReference Include="Deedle" Version="5.0.0" />
     <PackageReference Include="Expecto" Version="10.*" />
-    <PackageReference Include="FSharp.Data" Version="4.2.0" />
+    <PackageReference Include="FSharp.Data" Version="8.1.7" />
     <PackageReference Include="YoloDev.Expecto.TestSdk" Version="0.*" />
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.*" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="18.*" />
   </ItemGroup>
 
   <ItemGroup>

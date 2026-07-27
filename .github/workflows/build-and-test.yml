@@ -18,15 +18,15 @@ jobs:
       uses: actions/setup-dotnet@v4
       with:
         dotnet-version: |
-          8.x.x
+          10.x.x
     - name: make script executable
       run: chmod u+x build.sh
     - name: Build and test
       working-directory: ./
-      run: ./build.sh runtestsallnonetfx
+      run: ./build.sh runtestsall
 
   build-and-test-windows:
-    
+
     runs-on: windows-latest
 
     steps:
@@ -35,7 +35,7 @@ jobs:
       uses: actions/setup-dotnet@v4
       with:
         dotnet-version: |
-          8.x.x
-    - name: Build and test (includes netfx)
+          10.x.x
+    - name: Build and test
       working-directory: ./
       run: ./build.cmd runtestsall
