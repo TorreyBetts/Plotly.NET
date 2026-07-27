@@ -33,6 +33,7 @@
 
   <ItemGroup>
     <None Include="RELEASE_NOTES.md" />
+    <Compile Include="Theming.fs" />
     <Compile Include="Formatters.fs" />
     <Compile Include="Extension.fs" />
   </ItemGroup>
@@ -43,7 +44,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Plotly.NET\Plotly.NET.fsproj" PackageVersion="[6.0.0, 7.0.0)" />
-    <PackageReference Include="Verso.Abstractions" Version="1.0.11" />
+    <PackageReference Include="Verso.Abstractions" Version="1.1.2" />
   </ItemGroup>
 
   <Target Name="UseExplicitPackageVersions" BeforeTargets="GenerateNuspec">
