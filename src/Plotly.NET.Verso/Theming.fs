@@ -1,9 +1,11 @@
 namespace Plotly.NET.Verso
 
+open System
 open DynamicObj
 open Giraffe.ViewEngine
 open Newtonsoft.Json
 open Plotly.NET
+open Plotly.NET.ConfigObjects
 open Plotly.NET.LayoutObjects
 open Verso.Abstractions
 
@@ -163,12 +165,42 @@ module Theming =
 })();
 """
 
+    /// A file name for the chart's snapshot, taken from its title so a saved image says what it is.
+    ///
+    /// Only characters that are unremarkable in a file name on any platform survive; a chart with
+    /// no title, or a title that leaves nothing behind, keeps the library default.
+    let private snapshotName (layout: Layout) =
+        // Read as the base type rather than as a Title: copying a layout rebuilds what is nested
+        // inside it as plain dynamic objects, so asking for the concrete type finds nothing.
+        let title =
+            try
+                match layout.TryGetTypedPropertyValue<DynamicObj>("title") with
+                | Some title -> title.TryGetTypedPropertyValue<string>("text")
+                | None -> None
+            with _ ->
+                None
+
+        match title with
+        | None -> None
+        | Some text ->
+            let cleaned =
+                text.Trim()
+                |> Seq.map (fun c -> if Char.IsLetterOrDigit c then Char.ToLowerInvariant c else '-')
+                |> Seq.toArray
+                |> System.String
+            let collapsed =
+                cleaned.Split('-', StringSplitOptions.RemoveEmptyEntries)
+                |> String.concat "-"
+            if collapsed.Length = 0 then None else Some collapsed
+
     /// Prepares a chart for display inside a notebook cell.
     ///
-    /// Two things are adjusted, both only where the chart has not asked for something else. The
+    /// Three things are adjusted, each only where the chart has not asked for something else. The
     /// template becomes the theme-derived one, so the chart reads as part of the page. The pixel
     /// width and height that every chart is created with are dropped, so the chart fills the width
-    /// it is given; charts already carry a responsive config, which is what then sizes them.
+    /// it is given; charts already carry a responsive config, which is what then sizes them. The
+    /// snapshot button is pointed at a file named after the chart and drawn at twice the size, so
+    /// a saved image is legible and says what it is rather than arriving as "newplot".
     ///
     /// The layout is copied rather than edited, so displaying a chart never alters the value the
     /// caller is holding.
@@ -195,7 +227,17 @@ module Theming =
             else
                 layout
 
-        let chart = chart |> GenericChart.setLayout layout
+        let chart =
+            chart
+            |> GenericChart.setLayout layout
+            |> Chart.withConfigStyle (
+                ToImageButtonOptions =
+                    ToImageButtonOptions.init (
+                        Format = StyleParam.ImageFormat.PNG,
+                        Scale = 2.,
+                        ?Filename = snapshotName layout
+                    )
+            )
 
         // Only a chart left to the notebook's theme follows the page. One given a template by its
         // author keeps it.
